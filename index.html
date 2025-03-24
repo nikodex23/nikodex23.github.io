@@ -3,42 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taryfikator Kar dla Sędziów</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Taryfikator Przestępstw</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .category {
+            margin-bottom: 10px;
+        }
+        .category h2 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            margin: 0;
+        }
+        .category-content {
+            display: none;
+            background-color: #f9f9f9;
+            padding: 10px;
+        }
+        .category-content input {
+            margin-right: 10px;
+        }
+        .category-content label {
+            margin-right: 20px;
+        }
+        .penalty {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .penalty h3 {
+            margin-top: 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .clear-btn {
+            background-color: red;
+        }
+        .clear-btn:hover {
+            background-color: #e53935;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Taryfikator Kar dla Sędziów</h1>
-        <div>
-            <label for="category">Wybierz kategorię przestępstwa:</label>
-            <select id="category">
-                <option value="traffic">Wykroczenia Drogowe</option>
-                <option value="light">Przestępstwa Lekkie</option>
-                <option value="heavy">Przestępstwa Ciężkie</option>
-                <option value="weapons">Przestępstwa Związane z Bronią</option>
-                <option value="violence">Przestępstwa Związane z Użyciem Siły</option>
-                <option value="substances">Przestępstwa Związane z Nielegalnymi Substancjami</option>
-                <option value="gangs">Grupy Przestępcze</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="crime">Wybierz przestępstwo:</label>
-            <select id="crime">
-                <option value="">Wybierz przestępstwo</option>
-            </select>
-        </div>
-
-        <button id="calculate">Oblicz karę</button>
-
-        <div id="result">
-            <p><strong>Kara:</strong> <span id="penalty">Brak</span></p>
-            <p><strong>Kwota Mandatu:</strong> <span id="fine"></span> $</p>
-            <p><strong>Więzienie:</strong> <span id="imprisonment"></span> lat</p>
+        <h1>Taryfikator Przestępstw</h1>
+        <div id="categories"></div>
+        <div class="penalty">
+            <h3>Wybrana kara:</h3>
+            <p id="penalty"></p>
+            <p id="fine"></p>
+            <p id="imprisonment"></p>
             <p id="crime-description"></p>
         </div>
+        <button class="clear-btn" onclick="clearAllCharges()">Wyczyść wszystkie zarzuty</button>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const crimeData = {
+            "traffic": {
+                "Jazda pod wpływem alkoholu lub substancji odurzających": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 500,
+                    fineMax: 1000,
+                    imprisonmentMin: 3,
+                    imprisonmentMax: 5,
+                    description: "Jazda pod wpływem alkoholu lub substancji odurzających."
+                },
+                "Jazda bez prawa jazdy": {
+                    penalty: "Mandat",
+                    fineMin: 200,
+                    fineMax: 800,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 2,
+                    description: "Jazda bez odpowiednich uprawnień."
+                },
+                // ... dodaj wszystkie przestępstwa z kategorii wykroczeń drogowych
+            },
+            "light": {
+                "Niszczenie mienia publicznego": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 3000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Zniszczenie mienia publicznego."
+                },
+                // ... dodaj wszystkie przestępstwa z kategorii lekkich
+            },
+            "heavy": {
+                "Groźby przy użyciu broni": {
+                    penalty: "Więzienie",
+                    fineMin: 5000,
+                    fineMax: 15000,
+                    imprisonmentMin: 5,
+                    imprisonmentMax: 10,
+                    description: "Groźby przy użyciu broni."
+                },
+                // ... dodaj wszystkie przestępstwa z kategorii ciężkich
+            },
+            "weapons": {
+                "Posiadanie broni bez zezwolenia": {
+                    penalty: "Więzienie i Mandat",
+                    fineMin: 5000,
+                    fineMax: 15000,
+                    imprisonmentMin: 5,
+                    imprisonmentMax: 15,
+                    description: "Posiadanie broni bez zezwolenia."
+                },
+                // ... dodaj wszystkie przestępstwa związane z bronią
+            }
+        };
+
+        const categories = Object.keys(crimeData);
+
+        function createCategory(categoryName, crimes) {
+            const categoryDiv = document.createElement("div");
+            categoryDiv.classList.add("category");
+
+            const categoryHeader = document.createElement("h2");
+            categoryHeader.textContent = categoryName;
+            categoryDiv.appendChild(categoryHeader);
+
+            const categoryContent = document.createElement("div");
+            categoryContent.classList.add("category-content");
+            categoryDiv.appendChild(categoryContent);
+
+            crimes.forEach(crime => {
+                const label = document.createElement("label");
+                const input = document.createElement("input");
+                input.type = "checkbox";
+                input.value = crime;
+                input.addEventListener("change", calculatePenalty);
+
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(crime));
+                categoryContent.appendChild(label);
+            });
+
+            categoryHeader.addEventListener("click", () => {
+                categoryContent.style.display = categoryContent.style.display === "block" ? "none" : "block";
+            });
+
+            document.getElementById("categories").appendChild(categoryDiv);
+        }
+
+        function calculatePenalty() {
+            const selectedCrimes = [];
+
+            // Sprawdzenie zaznaczeń
+            const checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
+            checkboxes.forEach(checkbox => {
+                selectedCrimes.push(checkbox.value);
+            });
+
+            // Wybór kary
+            if (selectedCrimes.length > 0) {
+                const crime = selectedCrimes[selectedCrimes.length - 1]; // Wybieramy ostatnio zaznaczone
+                const category = getCategoryForCrime(crime);
+                const crimeDetails = crimeData[category][crime];
+
+                document.getElementById("penalty").textContent = crimeDetails.penalty;
+                document.getElementById("fine").textContent = `${crimeDetails.fineMin} - ${crimeDetails.fineMax} $`;
+                document.getElementById("imprisonment").textContent = `${crimeDetails.imprisonmentMin} - ${crimeDetails.imprisonmentMax} lat`;
+                document.getElementById("crime-description").textContent = crimeDetails.description;
+            }
+        }
+
+        function getCategoryForCrime(crime) {
+            for (const category in crimeData) {
+                if (crimeData[category][crime]) {
+                    return category;
+                }
+            }
+            return null;
+        }
+
+        function clearAllCharges() {
+            const checkboxes = document.querySelectorAll("input[type='checkbox']");
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+
+            document.getElementById("penalty").textContent = "";
+            document.getElementById("fine").textContent = "";
+            document.getElementById("imprisonment").textContent = "";
+            document.getElementById("crime-description").textContent = "";
+        }
+
+        // Tworzenie zakładek
+        categories.forEach(category => {
+            createCategory(category, Object.keys(crimeData[category]));
+        });
+    </script>
 </body>
 </html>
