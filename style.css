@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+label, select {
+    display: block;
+    margin: 10px 0;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+}
