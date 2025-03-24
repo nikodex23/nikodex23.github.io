@@ -7,24 +7,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Taryfikator Kar dla Sędziów</h1>
-    
-    <label for="category">Wybierz kategorię przestępstwa:</label>
-    <select id="category">
-        <option value="property">Przestępstwa przeciwko mieniu</option>
-        <option value="life">Przestępstwa przeciwko życiu i zdrowiu</option>
-        <option value="order">Przestępstwa przeciwko porządkowi publicznemu</option>
-        <option value="economic">Przestępstwa gospodarcze</option>
-    </select>
+    <div class="container">
+        <h1>Taryfikator Kar dla Sędziów</h1>
+        <div>
+            <label for="category">Wybierz kategorię przestępstwa:</label>
+            <select id="category">
+                <option value="traffic">Wykroczenia Drogowe</option>
+                <option value="light">Przestępstwa Lekkie</option>
+                <option value="heavy">Przestępstwa Ciężkie</option>
+                <option value="weapons">Przestępstwa Związane z Bronią</option>
+                <option value="violence">Przestępstwa Związane z Użyciem Siły</option>
+                <option value="substances">Przestępstwa Związane z Nielegalnymi Substancjami</option>
+                <option value="gangs">Grupy Przestępcze</option>
+            </select>
+        </div>
 
-    <label for="crime">Wybierz przestępstwo:</label>
-    <select id="crime"></select>
+        <div>
+            <label for="crime">Wybierz przestępstwo:</label>
+            <select id="crime">
+                <option value="">Wybierz przestępstwo</option>
+            </select>
+        </div>
 
-    <button id="calculate">Oblicz karę</button>
+        <button id="calculate">Oblicz karę</button>
 
-    <div id="result">
-        <p>Kara: <span id="penalty">0</span> lat pozbawienia wolności</p>
-        <p id="crime-description"></p>
+        <div id="result">
+            <p><strong>Kara:</strong> <span id="penalty">Brak</span></p>
+            <p><strong>Kwota Mandatu:</strong> <span id="fine"></span> $</p>
+            <p><strong>Więzienie:</strong> <span id="imprisonment"></span> lat</p>
+            <p id="crime-description"></p>
+        </div>
     </div>
 
     <script src="script.js"></script>
