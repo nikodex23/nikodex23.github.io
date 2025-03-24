@@ -102,7 +102,134 @@
                     imprisonmentMax: 2,
                     description: "Jazda bez odpowiednich uprawnień."
                 },
-                // ... dodaj wszystkie przestępstwa z kategorii wykroczeń drogowych
+                "Jazda bez włączonych świateł": {
+                    penalty: "Mandat",
+                    fineMin: 50,
+                    fineMax: 200,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 1,
+                    description: "Nie włączone światła podczas jazdy."
+                },
+                "Przekroczenie prędkości w terenie zabudowanym": {
+                    penalty: "Mandat",
+                    fineMin: 100,
+                    fineMax: 500,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 0,
+                    description: "Przekroczenie prędkości w terenie zabudowanym."
+                },
+                "Przekroczenie prędkości poza terenem zabudowanym": {
+                    penalty: "Mandat",
+                    fineMin: 100,
+                    fineMax: 300,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 0,
+                    description: "Przekroczenie prędkości poza terenem zabudowanym."
+                },
+                "Brawurowa jazda": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 5000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Brawurowa jazda stwarzająca zagrożenie dla innych."
+                },
+                "Stwarzanie zagrożenia w ruchu lądowym": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 500,
+                    fineMax: 2000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Stwarzanie zagrożenia w ruchu lądowym."
+                },
+                "Niezatrzymanie pojazdu do kontroli": {
+                    penalty: "Więzienie",
+                    fineMin: 5000,
+                    fineMax: 10000,
+                    imprisonmentMin: 3,
+                    imprisonmentMax: 5,
+                    description: "Nie zatrzymanie pojazdu do kontroli."
+                },
+                "Niewłaściwe parkowanie": {
+                    penalty: "Mandat",
+                    fineMin: 50,
+                    fineMax: 100,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 0,
+                    description: "Niewłaściwe parkowanie."
+                },
+                "Zły stan techniczny pojazdu": {
+                    penalty: "Mandat",
+                    fineMin: 100,
+                    fineMax: 500,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 0,
+                    description: "Pojazd w złym stanie technicznym."
+                },
+                "Nieużycie kierunkowskazu": {
+                    penalty: "Mandat",
+                    fineMin: 50,
+                    fineMax: 100,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 0,
+                    description: "Nieużycie kierunkowskazu podczas zmiany pasa ruchu."
+                },
+                "Przejazd na czerwonym świetle": {
+                    penalty: "Mandat",
+                    fineMin: 300,
+                    fineMax: 1000,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 0,
+                    description: "Przejazd na czerwonym świetle."
+                },
+                "Nie zatrzymanie na znaku STOP": {
+                    penalty: "Mandat",
+                    fineMin: 200,
+                    fineMax: 800,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 0,
+                    description: "Nie zatrzymanie na znaku STOP."
+                },
+                "Zniszczenie mienia": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 5000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Zniszczenie mienia."
+                },
+                "Powodowanie kolizji/wypadku": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 2000,
+                    fineMax: 10000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 5,
+                    description: "Powodowanie kolizji lub wypadku."
+                },
+                "Jazda pod prąd": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 500,
+                    fineMax: 2000,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 2,
+                    description: "Jazda pod prąd."
+                },
+                "Potrącenie przechodnia": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 5000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 5,
+                    description: "Potrącenie przechodnia."
+                },
+                "Przechodzenie przez jezdnię w niedozwolonym miejscu": {
+                    penalty: "Mandat",
+                    fineMin: 50,
+                    fineMax: 200,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 0,
+                    description: "Przechodzenie przez jezdnię w niedozwolonym miejscu."
+                }
             },
             "light": {
                 "Niszczenie mienia publicznego": {
@@ -113,109 +240,183 @@
                     imprisonmentMax: 3,
                     description: "Zniszczenie mienia publicznego."
                 },
-                // ... dodaj wszystkie przestępstwa z kategorii lekkich
-            },
-            "heavy": {
-                "Groźby przy użyciu broni": {
+                "Niewykonywanie poleceń funkcjonariusza": {
+                    penalty: "Mandat",
+                    fineMin: 500,
+                    fineMax: 2000,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 1,
+                    description: "Niewykonywanie poleceń funkcjonariusza."
+                },
+                "Obraza funkcjonariusza": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 3000,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 1,
+                    description: "Obraza funkcjonariusza."
+                },
+                "Utrudnianie pracy służbom publicznym": {
+                    penalty: "Mandat",
+                    fineMin: 500,
+                    fineMax: 2000,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 1,
+                    description: "Utrudnianie pracy służbom publicznym."
+                },
+                "Fałszywe zgłoszenie": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 5000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Fałszywe zgłoszenie."
+                },
+                "Wtargnięcie na teren prywatny": {
+                    penalty: "Mandat",
+                    fineMin: 500,
+                    fineMax: 2000,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 1,
+                    description: "Wtargnięcie na teren prywatny."
+                },
+                "Wtargnięcie na teren komendy CPD/CSD": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 5000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Wtargnięcie na teren komendy CPD/CSD."
+                },
+                "Niszczenie cudzej własności": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 3000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Niszczenie cudzej własności."
+                },
+                "Składanie fałszywych zeznań": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 3000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Składanie fałszywych zeznań."
+                },
+                "Kradzież pojazdu": {
                     penalty: "Więzienie",
                     fineMin: 5000,
                     fineMax: 15000,
-                    imprisonmentMin: 5,
-                    imprisonmentMax: 10,
-                    description: "Groźby przy użyciu broni."
+                    imprisonmentMin: 3,
+                    imprisonmentMax: 5,
+                    description: "Kradzież pojazdu."
                 },
-                // ... dodaj wszystkie przestępstwa z kategorii ciężkich
-            },
-            "weapons": {
-                "Posiadanie broni bez zezwolenia": {
-                    penalty: "Więzienie i Mandat",
-                    fineMin: 5000,
-                    fineMax: 15000,
-                    imprisonmentMin: 5,
-                    imprisonmentMax: 15,
-                    description: "Posiadanie broni bez zezwolenia."
+                "Posiadanie kontrabandy": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 5000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Posiadanie kontrabandy."
                 },
-                // ... dodaj wszystkie przestępstwa związane z bronią
+                "Stawianie oporu": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 3000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Stawianie oporu funkcjonariuszowi."
+                },
+                "Kradzież cudzej własności": {
+                    penalty: "Mandat i Więzienie",
+                    fineMin: 1000,
+                    fineMax: 5000,
+                    imprisonmentMin: 1,
+                    imprisonmentMax: 3,
+                    description: "Kradzież cudzej własności."
+                },
+                "Latanie dronem bez licencji": {
+                    penalty: "Mandat",
+                    fineMin: 200,
+                    fineMax: 1000,
+                    imprisonmentMin: 0,
+                    imprisonmentMax: 1,
+                    description: "Latanie dronem bez odpowiednich zezwoleń."
+                }
             }
         };
 
-        const categories = Object.keys(crimeData);
+        function createCategory(category, data) {
+            let categoryDiv = document.createElement('div');
+            categoryDiv.classList.add('category');
 
-        function createCategory(categoryName, crimes) {
-            const categoryDiv = document.createElement("div");
-            categoryDiv.classList.add("category");
-
-            const categoryHeader = document.createElement("h2");
-            categoryHeader.textContent = categoryName;
+            let categoryHeader = document.createElement('h2');
+            categoryHeader.textContent = category;
             categoryDiv.appendChild(categoryHeader);
 
-            const categoryContent = document.createElement("div");
-            categoryContent.classList.add("category-content");
+            let categoryContent = document.createElement('div');
+            categoryContent.classList.add('category-content');
+
+            for (let crime in data) {
+                let crimeDiv = document.createElement('div');
+                crimeDiv.classList.add('crime');
+
+                let crimeCheckbox = document.createElement('input');
+                crimeCheckbox.type = 'checkbox';
+                crimeCheckbox.id = crime;
+                crimeCheckbox.name = crime;
+                crimeCheckbox.addEventListener('change', function () {
+                    updatePenalty(data[crime]);
+                });
+
+                let crimeLabel = document.createElement('label');
+                crimeLabel.setAttribute('for', crime);
+                crimeLabel.textContent = crime;
+
+                crimeDiv.appendChild(crimeCheckbox);
+                crimeDiv.appendChild(crimeLabel);
+                categoryContent.appendChild(crimeDiv);
+            }
+
             categoryDiv.appendChild(categoryContent);
-
-            crimes.forEach(crime => {
-                const label = document.createElement("label");
-                const input = document.createElement("input");
-                input.type = "checkbox";
-                input.value = crime;
-                input.addEventListener("change", calculatePenalty);
-
-                label.appendChild(input);
-                label.appendChild(document.createTextNode(crime));
-                categoryContent.appendChild(label);
-            });
-
-            categoryHeader.addEventListener("click", () => {
-                categoryContent.style.display = categoryContent.style.display === "block" ? "none" : "block";
-            });
-
-            document.getElementById("categories").appendChild(categoryDiv);
+            document.getElementById('categories').appendChild(categoryDiv);
         }
 
-        function calculatePenalty() {
-            const selectedCrimes = [];
+        function updatePenalty(crime) {
+            const penaltyElement = document.getElementById('penalty');
+            const fineElement = document.getElementById('fine');
+            const imprisonmentElement = document.getElementById('imprisonment');
+            const descriptionElement = document.getElementById('crime-description');
 
-            // Sprawdzenie zaznaczeń
-            const checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
-            checkboxes.forEach(checkbox => {
-                selectedCrimes.push(checkbox.value);
-            });
-
-            // Wybór kary
-            if (selectedCrimes.length > 0) {
-                const crime = selectedCrimes[selectedCrimes.length - 1]; // Wybieramy ostatnio zaznaczone
-                const category = getCategoryForCrime(crime);
-                const crimeDetails = crimeData[category][crime];
-
-                document.getElementById("penalty").textContent = crimeDetails.penalty;
-                document.getElementById("fine").textContent = `${crimeDetails.fineMin} - ${crimeDetails.fineMax} $`;
-                document.getElementById("imprisonment").textContent = `${crimeDetails.imprisonmentMin} - ${crimeDetails.imprisonmentMax} lat`;
-                document.getElementById("crime-description").textContent = crimeDetails.description;
-            }
-        }
-
-        function getCategoryForCrime(crime) {
-            for (const category in crimeData) {
-                if (crimeData[category][crime]) {
-                    return category;
-                }
-            }
-            return null;
+            penaltyElement.textContent = crime.penalty;
+            fineElement.textContent = `Mandat: ${crime.fineMin} - ${crime.fineMax} PLN`;
+            imprisonmentElement.textContent = `Więzienie: ${crime.imprisonmentMin} - ${crime.imprisonmentMax} lat`;
+            descriptionElement.textContent = crime.description;
         }
 
         function clearAllCharges() {
-            const checkboxes = document.querySelectorAll("input[type='checkbox']");
-            checkboxes.forEach(checkbox => checkbox.checked = false);
-
-            document.getElementById("penalty").textContent = "";
-            document.getElementById("fine").textContent = "";
-            document.getElementById("imprisonment").textContent = "";
-            document.getElementById("crime-description").textContent = "";
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = false;
+            });
+            document.getElementById('penalty').textContent = '';
+            document.getElementById('fine').textContent = '';
+            document.getElementById('imprisonment').textContent = '';
+            document.getElementById('crime-description').textContent = '';
         }
 
-        // Tworzenie zakładek
-        categories.forEach(category => {
-            createCategory(category, Object.keys(crimeData[category]));
+        // Initialize categories
+        for (const category in crimeData) {
+            createCategory(category, crimeData[category]);
+        }
+
+        // Toggle category visibility
+        document.querySelectorAll('.category h2').forEach(header => {
+            header.addEventListener('click', function () {
+                const content = this.nextElementSibling;
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
         });
     </script>
 </body>
