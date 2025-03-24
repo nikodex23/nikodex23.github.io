@@ -1,18 +1,32 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taryfikator Kar dla Sędziów</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Taryfikator Kar dla Sędziów</h1>
+    
+    <label for="category">Wybierz kategorię przestępstwa:</label>
+    <select id="category">
+        <option value="property">Przestępstwa przeciwko mieniu</option>
+        <option value="life">Przestępstwa przeciwko życiu i zdrowiu</option>
+        <option value="order">Przestępstwa przeciwko porządkowi publicznemu</option>
+        <option value="economic">Przestępstwa gospodarcze</option>
+    </select>
 
-h1 {
-    text-align: center;
-}
+    <label for="crime">Wybierz przestępstwo:</label>
+    <select id="crime"></select>
 
-label, select {
-    display: block;
-    margin: 10px 0;
-}
+    <button id="calculate">Oblicz karę</button>
 
-#result {
-    margin-top: 20px;
-    font-weight: bold;
-}
+    <div id="result">
+        <p>Kara: <span id="penalty">0</span> lat pozbawienia wolności</p>
+        <p id="crime-description"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
