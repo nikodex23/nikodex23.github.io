@@ -1164,6 +1164,44 @@
         </tbody>
     </table>
 </section>
+            <!-- index.html - dodaj tę sekcję -->
+<section id="advanced-calculator">
+    <h2>⚖️ Inteligentny Kalkulator Wyroków</h2>
+    
+    <div class="calculator-controls">
+        <div class="factors">
+            <h3>Czynniki łagodzące:</h3>
+            <label><input type="checkbox" id="cooperation"> Współpraca z organami</label>
+            <label><input type="checkbox" id="honesty"> Pełna szczerość</label>
+            <label><input type="checkbox" id="first-time"> Pierwsze przestępstwo</label>
+            
+            <h3>Czynniki obciążające:</h3>
+            <label><input type="checkbox" id="recidivism"> Recydywa</label>
+            <label><input type="checkbox" id="violence"> Stosowanie przemocy</label>
+        </div>
+
+        <div class="sentence-preview">
+            <h3>Proponowany wyrok:</h3>
+            <div id="sentence-details">
+                <p>Grzywna: <span id="calculated-fine">$0</span></p>
+                <p>Kara więzienia: <span id="calculated-jail">0 dni</span></p>
+                <p>Dodatkowe sankcje: <span id="calculated-sanctions">-</span></p>
+                <div id="sentence-explanation"></div>
+            </div>
+            <button id="generate-sentence">Generuj wyrok</button>
+            <button id="save-case">Zapisz sprawę</button>
+        </div>
+    </div>
+
+    <div class="legal-guidelines">
+        <h4>Zasady łączenia wyroków:</h4>
+        <ul>
+            <li>§ Art. 54 KKW: Za przestępstwa ciągłe - suma kar pomnożona przez 0.7</li>
+            <li>§ Art. 32 KKW: Współpraca - do -40% kary głównej</li>
+            <li>§ Art. 18a KKW: Recydywa - do +50% kary</li>
+        </ul>
+    </div>
+</section>
  
         </tbody>
     </table>
