@@ -1,54 +1,170 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taryfikator Sędziowski</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Taryfikator Przestępstw</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Taryfikator Przestępstw</h2>
-        
-        <div class="category" onclick="toggleCategory('traffic')">Wykroczenia Drogowe</div>
-        <div id="traffic" class="offenses">
-            <div class="offense" onclick="toggleOffense(this)">Jazda pod wpływem alkoholu - $5000, 10 dni</div>
-            <div class="offense" onclick="toggleOffense(this)">Przekroczenie prędkości - $200</div>
-            <div class="offense" onclick="toggleOffense(this)">Jazda bez prawa jazdy - $1000</div>
-            <div class="offense" onclick="toggleOffense(this)">Niebezpieczna jazda - $3000</div>
-        </div>
-        
-        <div class="category" onclick="toggleCategory('light')">Przestępstwa Lekkie</div>
-        <div id="light" class="offenses">
-            <div class="offense" onclick="toggleOffense(this)">Niszczenie mienia - $1500</div>
-            <div class="offense" onclick="toggleOffense(this)">Kradzież - $2000, 5 dni</div>
-            <div class="offense" onclick="toggleOffense(this)">Obraza funkcjonariusza - $1000</div>
-            <div class="offense" onclick="toggleOffense(this)">Wtargnięcie na teren prywatny - $2500</div>
-        </div>
-        
-        <div class="category" onclick="toggleCategory('heavy')">Przestępstwa Ciężkie</div>
-        <div id="heavy" class="offenses">
-            <div class="offense" onclick="toggleOffense(this)">Porwanie - $20000, 15 dni</div>
-            <div class="offense" onclick="toggleOffense(this)">Napad na bank - $50000, 30 dni</div>
-            <div class="offense" onclick="toggleOffense(this)">Morderstwo - $75000, 40 dni</div>
-            <div class="offense" onclick="toggleOffense(this)">Handel bronią - $30000, 20 dni</div>
-        </div>
-        
-        <div class="category" onclick="toggleCategory('weapons')">Przestępstwa Związane z Bronią</div>
-        <div id="weapons" class="offenses">
-            <div class="offense" onclick="toggleOffense(this)">Posiadanie broni bez licencji - $10000</div>
-            <div class="offense" onclick="toggleOffense(this)">Użycie broni w miejscu publicznym - $25000</div>
-        </div>
-        
-        <div class="category" onclick="toggleCategory('drugs')">Przestępstwa Narkotykowe</div>
-        <div id="drugs" class="offenses">
-            <div class="offense" onclick="toggleOffense(this)">Posiadanie narkotyków twardych - $20000, 15 dni</div>
-            <div class="offense" onclick="toggleOffense(this)">Handel narkotykami - $35000, 25 dni</div>
-        </div>
-        
-        <button onclick="resetOffenses()">Wyczyść zarzuty</button>
-    </div>
+  <header>
+    <h1>Taryfikator Przestępstw</h1>
+    <nav>
+      <ul>
+        <li><a href="#traffic">Wykroczenia Drogowe</a></li>
+        <li><a href="#light">Przestępstwa Lekkie</a></li>
+        <li><a href="#heavy">Przestępstwa Ciężkie</a></li>
+        <li><a href="#weapons">Przestępstwa z Bronią</a></li>
+        <li><a href="#drugs">Przestępstwa Narkotykowe</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <script src="script.js"></script>
+  <main>
+    <!-- Sekcja: Wykroczenia Drogowe -->
+    <section id="traffic" class="category-section">
+      <h2>Wykroczenia Drogowe</h2>
+      <div class="offense-table">
+        <div class="offense-row header">
+          <div class="offense-cell">Przestępstwo</div>
+          <div class="offense-cell">Kara Finansowa</div>
+          <div class="offense-cell">Kara Więzienia</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Jazda pod wpływem alkoholu</div>
+          <div class="offense-cell">$5000</div>
+          <div class="offense-cell">10 dni</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Przekroczenie prędkości</div>
+          <div class="offense-cell">$200</div>
+          <div class="offense-cell">-</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Jazda bez prawa jazdy</div>
+          <div class="offense-cell">$1000</div>
+          <div class="offense-cell">-</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Niebezpieczna jazda</div>
+          <div class="offense-cell">$3000</div>
+          <div class="offense-cell">5 dni</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sekcja: Przestępstwa Lekkie -->
+    <section id="light" class="category-section">
+      <h2>Przestępstwa Lekkie</h2>
+      <div class="offense-table">
+        <div class="offense-row header">
+          <div class="offense-cell">Przestępstwo</div>
+          <div class="offense-cell">Kara Finansowa</div>
+          <div class="offense-cell">Kara Więzienia</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Niszczenie mienia</div>
+          <div class="offense-cell">$1500</div>
+          <div class="offense-cell">-</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Kradzież</div>
+          <div class="offense-cell">$2000</div>
+          <div class="offense-cell">5 dni</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Obraza funkcjonariusza</div>
+          <div class="offense-cell">$1000</div>
+          <div class="offense-cell">-</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Wtargnięcie na teren prywatny</div>
+          <div class="offense-cell">$2500</div>
+          <div class="offense-cell">-</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sekcja: Przestępstwa Ciężkie -->
+    <section id="heavy" class="category-section">
+      <h2>Przestępstwa Ciężkie</h2>
+      <div class="offense-table">
+        <div class="offense-row header">
+          <div class="offense-cell">Przestępstwo</div>
+          <div class="offense-cell">Kara Finansowa</div>
+          <div class="offense-cell">Kara Więzienia</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Porwanie</div>
+          <div class="offense-cell">$20000</div>
+          <div class="offense-cell">15 dni</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Napad na bank</div>
+          <div class="offense-cell">$50000</div>
+          <div class="offense-cell">30 dni</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Morderstwo</div>
+          <div class="offense-cell">$75000</div>
+          <div class="offense-cell">40 dni</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Handel bronią</div>
+          <div class="offense-cell">$30000</div>
+          <div class="offense-cell">20 dni</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sekcja: Przestępstwa z Bronią -->
+    <section id="weapons" class="category-section">
+      <h2>Przestępstwa z Bronią</h2>
+      <div class="offense-table">
+        <div class="offense-row header">
+          <div class="offense-cell">Przestępstwo</div>
+          <div class="offense-cell">Kara Finansowa</div>
+          <div class="offense-cell">Kara Więzienia</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Posiadanie broni bez licencji</div>
+          <div class="offense-cell">$10000</div>
+          <div class="offense-cell">-</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Użycie broni w miejscu publicznym</div>
+          <div class="offense-cell">$25000</div>
+          <div class="offense-cell">-</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sekcja: Przestępstwa Narkotykowe -->
+    <section id="drugs" class="category-section">
+      <h2>Przestępstwa Narkotykowe</h2>
+      <div class="offense-table">
+        <div class="offense-row header">
+          <div class="offense-cell">Przestępstwo</div>
+          <div class="offense-cell">Kara Finansowa</div>
+          <div class="offense-cell">Kara Więzienia</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Posiadanie narkotyków twardych</div>
+          <div class="offense-cell">$20000</div>
+          <div class="offense-cell">15 dni</div>
+        </div>
+        <div class="offense-row">
+          <div class="offense-cell">Handel narkotykami</div>
+          <div class="offense-cell">$35000</div>
+          <div class="offense-cell">25 dni</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Taryfikator RP — Strona wzorowana, lecz nieidentyczna z przykładowym taryfikatorem.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
