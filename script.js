@@ -71,3 +71,23 @@ function resetOffenses() {
   checks.forEach(check => check.checked = false);
   document.getElementById('selectedOffenses').innerHTML = '<p>Brak wybranych przestępstw.</p>';
 }
+
+// [Dodaj wszystkie funkcje kalkulatora z poprzedniej odpowiedzi]
+
+// Funkcja generująca dokument PDF
+function generateSentencePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  
+  doc.text("OFFICIAL SENTENCING REPORT - CHICAGO PD", 10, 10);
+  doc.autoTable({
+    head: [["Przestępstwo", "Grzywna", "Więzienie"]],
+    body: selectedCrimes.map(crime => [
+      crime.name, 
+      `$${crime.fine}`, 
+      `${crime.prison} dni`
+    ])
+  });
+  
+  doc.save(`wyrok_${new Date().toLocaleDateString()}.pdf`);
+}
