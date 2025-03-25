@@ -1,140 +1,142 @@
-// script.js
-class SentencingCalculator {
-    constructor() {
-        this.cases = [];
-        this.currentCase = {
-            crimes: [],
-            factors: {
-                mitigating: {},
-                aggravating: {}
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicjalizacja kalkulatora
+    const calculator = {
+        selectedCrimes: [],
+        factors: {
+            mitigating: {
+                cooperation: false,
+                honesty: false,
+                firstTime: false
+            },
+            aggravating: {
+                recidivism: false,
+                violence: false
             }
-        };
+        }
+    };
+
+    // Funkcja parsująca kwoty
+    function parseFine(fineText) {
+        const range = fineText.replace(/\$/g, '').split('-');
+        const min = parseInt(range[0]) || 0;
+        const max = parseInt(range[1]) || min;
+        return (min + max) / 2;
     }
 
-    // Nowa inteligentna metoda obliczania
-    calculateSentence() {
-        let baseFine = 0;
-        let baseJail = 0;
-        const sanctions = new Set();
+    // Funkcja parsująca kary więzienia
+    function parseJail(jailText) {
+        if (!jailText || jailText === '-') return 0;
+        const range = jailText.split('-');
+        const min = parseInt(range[0]) || 0;
+        const max = parseInt(range[1]) || min;
+        return (min + max) / 2;
+    }
+
+    // Dodawanie przestępstwa do kalkulatora
+    document.querySelectorAll('.add-to-calculator').forEach(button => {
+        button.addEventListener('click', function() {
+            const crime = JSON.parse(this.dataset.crime);
+            calculator.selectedCrimes.push(crime);
+            updateCalculatorUI();
+        });
+    });
+
+    // Obsługa checkboxów
+    document.querySelectorAll('.factors input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const type = this.id in calculator.factors.mitigating ? 'mitigating' : 'aggravating';
+            calculator.factors[type][this.id] = this.checked;
+        });
+    });
+
+    // Generowanie wyroku
+    document.getElementById('generate-sentence').addEventListener('click', function() {
+        calculateSentence();
+    });
+
+    // Funkcja aktualizująca UI
+    function updateCalculatorUI() {
+        const crimesList = document.getElementById('selected-crimes-list');
+        crimesList.innerHTML = '';
         
+        calculator.selectedCrimes.forEach((crime, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                ${crime.name} 
+                <button onclick="removeCrime(${index})">×</button>
+            `;
+            crimesList.appendChild(li);
+        });
+    }
+
+    // Funkcja obliczająca wyrok
+    function calculateSentence() {
+        let totalFine = 0;
+        let totalJail = 0;
+        const sanctions = new Set();
+
         // Obliczenia podstawowe
-        this.currentCase.crimes.forEach(crime => {
-            // Grzywna - suma z limitem 200% najwyższej kary
-            const crimeFine = this.parseFine(crime.fine);
-            baseFine = Math.max(baseFine, crimeFine * 2);
+        calculator.selectedCrimes.forEach(crime => {
+            totalFine += parseFine(crime.fine);
+            totalJail += parseJail(crime.jail);
             
-            // Kara więzienia - najsurowsza kara + 30% pozostałych
-            if (crime.jail !== '-') {
-                const crimeJail = this.parseJail(crime.jail);
-                if (crimeJail > baseJail) {
-                    baseJail += (crimeJail - baseJail) * 1.3;
-                } else {
-                    baseJail += crimeJail * 0.3;
-                }
-            }
-            
-            // Sankcje
-            if (crime.sanctions && crime.sanctions !== '-') {
+            if (crime.sanctions) {
                 crime.sanctions.split(', ').forEach(s => sanctions.add(s));
             }
         });
 
         // Modyfikatory
-        let mitigationFactor = 1;
         let explanation = [];
-        
+        let factor = 1;
+
         // Czynniki łagodzące
-        if (this.currentCase.factors.mitigating.cooperation) {
-            mitigationFactor *= 0.7;
+        if (calculator.factors.mitigating.cooperation) {
+            factor *= 0.7;
             explanation.push('Współpraca z organami (-30%)');
         }
-        if (this.currentCase.factors.mitigating.honesty) {
-            mitigationFactor *= 0.8;
-            explanation.push('Szczerość (-20%)');
+        if (calculator.factors.mitigating.honesty) {
+            factor *= 0.9;
+            explanation.push('Szczerość (-10%)');
         }
-        if (this.currentCase.factors.mitigating.firstTime) {
-            mitigationFactor *= 0.9;
-            explanation.push('Pierwsze przestępstwo (-10%)');
+        if (calculator.factors.mitigating.firstTime) {
+            factor *= 0.8;
+            explanation.push('Pierwsze przestępstwo (-20%)');
         }
 
         // Czynniki obciążające
-        if (this.currentCase.factors.aggravating.recidivism) {
-            mitigationFactor *= 1.5;
+        if (calculator.factors.aggravating.recidivism) {
+            factor *= 1.5;
             explanation.push('Recydywa (+50%)');
         }
-        if (this.currentCase.factors.aggravating.violence) {
-            mitigationFactor *= 1.3;
-            explanation.push('Stosowanie przemocy (+30%)');
+        if (calculator.factors.aggravating.violence) {
+            factor *= 1.3;
+            explanation.push('Przemoc (+30%)');
         }
 
-        const totalJail = Math.round(baseJail * mitigationFactor);
-        const totalFine = Math.round(baseFine * mitigationFactor);
+        // Zastosuj modyfikatory
+        totalFine = Math.round(totalFine * factor);
+        totalJail = Math.round(totalJail * factor);
 
-        return {
-            totalJail,
-            totalFine,
-            sanctions: Array.from(sanctions).join(', '),
-            explanation
-        };
+        // Aktualizacja UI
+        document.getElementById('calculated-fine').textContent = `$${totalFine}`;
+        document.getElementById('calculated-jail').textContent = `${totalJail} dni`;
+        document.getElementById('calculated-sanctions').textContent = 
+            sanctions.size > 0 ? Array.from(sanctions).join(', ') : '-';
+        
+        document.getElementById('sentence-explanation').innerHTML = 
+            explanation.length > 0 ? explanation.join('<br>') : 'Brak modyfikatorów';
     }
 
-    parseFine(fine) {
-        // Implementacja jak wcześniej
-    }
-
-    parseJail(jail) {
-        // Implementacja jak wcześniej
-    }
-}
-
-// Inicjalizacja systemu
-const calculator = new SentencingCalculator();
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Obsługa checkboxów
-    const factors = {
-        mitigating: {
-            cooperation: document.getElementById('cooperation'),
-            honesty: document.getElementById('honesty'),
-            firstTime: document.getElementById('first-time')
-        },
-        aggravating: {
-            recidivism: document.getElementById('recidivism'),
-            violence: document.getElementById('violence')
-        }
+    // Funkcja usuwająca przestępstwo (globalna)
+    window.removeCrime = function(index) {
+        calculator.selectedCrimes.splice(index, 1);
+        updateCalculatorUI();
+        calculateSentence();
     };
-
-    // Generuj wyrok
-    document.getElementById('generate-sentence').addEventListener('click', function() {
-        // Aktualizuj czynniki
-        for (const type in factors) {
-            for (const factor in factors[type]) {
-                calculator.currentCase.factors[type][factor] = factors[type][factor].checked;
-            }
-        }
-
-        const sentence = calculator.calculateSentence();
-        
-        document.getElementById('calculated-fine').textContent = `$${sentence.totalFine.toLocaleString()}`;
-        document.getElementById('calculated-jail').textContent = `${sentence.totalJail} dni`;
-        document.getElementById('calculated-sanctions').textContent = sentence.sanctions || '-';
-        
-        const explanationHTML = sentence.explanation.length > 0 
-            ? `<strong>Obliczenia:</strong><br>${sentence.explanation.join('<br>')}`
-            : 'Brak modyfikatorów';
-        document.getElementById('sentence-explanation').innerHTML = explanationHTML;
-    });
-
-    // Zapisz sprawę
-    document.getElementById('save-case').addEventListener('click', function() {
-        const savedCases = JSON.parse(localStorage.getItem('cases') || []);
-        savedCases.push(calculator.currentCase);
-        localStorage.setItem('cases', JSON.stringify(savedCases));
-        alert('Sprawa zapisana w archiwum!');
-    });
-
-    // Dodawanie przestępstw (jak wcześniej)
-    document.querySelectorAll('tbody tr').forEach(row => {
-        // ... istniejący kod ...
-    });
 });
+
+// Funkcja do pokazywania/ukrywania porad
+function toggleTips(id) {
+    const element = document.getElementById(`tips-${id}`);
+    element.style.display = element.style.display === 'block' ? 'none' : 'block';
+}
