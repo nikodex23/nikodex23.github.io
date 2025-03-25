@@ -3,250 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taryfikator Przestępstw - Sędziowie</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .category {
-            margin-bottom: 10px;
-        }
-        .category h2 {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            cursor: pointer;
-            margin: 0;
-        }
-        .category-content {
-            display: none;
-            background-color: #f9f9f9;
-            padding: 10px;
-        }
-        .category-content input {
-            margin-right: 10px;
-        }
-        .category-content label {
-            margin-right: 20px;
-        }
-        .penalty {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .penalty h3 {
-            margin-top: 0;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .clear-btn {
-            background-color: red;
-        }
-        .clear-btn:hover {
-            background-color: #e53935;
-        }
-        .info-box {
-            background-color: #ffffe0;
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 5px;
-        }
-        .info-box h3 {
-            margin-top: 0;
-        }
-        .save-btn {
-            background-color: #3b5998;
-        }
-        .save-btn:hover {
-            background-color: #2d4373;
-        }
-    </style>
+    <title>Taryfikator Sędziowski</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Taryfikator Przestępstw dla Sędziów</h1>
-
-        <!-- Sekcja z informacjami prawnymi -->
-        <div class="info-box">
-            <h3>Informacje Prawne:</h3>
-            <p><strong>Przypomnienie:</strong> Pamiętaj, że w przypadku niektórych przestępstw obowiązują obowiązkowe minimalne kary, a w innych sędzia ma możliwość ich modyfikacji w zależności od okoliczności sprawy.</p>
-            <p><strong>Uwaga:</strong> Kary mogą się różnić w zależności od charakteru przestępstwa, okoliczności, a także powiązanych przepisów prawnych. Upewnij się, że zapoznałeś się z aktualnymi przepisami przed wydaniem wyroku.</p>
+        <h2>Taryfikator Przestępstw</h2>
+        
+        <div class="category" onclick="toggleCategory('traffic')">Wykroczenia Drogowe</div>
+        <div id="traffic" class="offenses">
+            <div class="offense" onclick="toggleOffense(this)">Jazda pod wpływem alkoholu - $5000, 10 dni</div>
+            <div class="offense" onclick="toggleOffense(this)">Przekroczenie prędkości - $200</div>
+            <div class="offense" onclick="toggleOffense(this)">Jazda bez prawa jazdy - $1000</div>
+            <div class="offense" onclick="toggleOffense(this)">Niebezpieczna jazda - $3000</div>
         </div>
-
-        <!-- Lista kategorii przestępstw -->
-        <div id="categories"></div>
-
-        <!-- Sekcja z wynikami -->
-        <div class="penalty">
-            <h3>Wybrana kara:</h3>
-            <p id="penalty"></p>
-            <p id="fine"></p>
-            <p id="imprisonment"></p>
-            <p id="crime-description"></p>
+        
+        <div class="category" onclick="toggleCategory('light')">Przestępstwa Lekkie</div>
+        <div id="light" class="offenses">
+            <div class="offense" onclick="toggleOffense(this)">Niszczenie mienia - $1500</div>
+            <div class="offense" onclick="toggleOffense(this)">Kradzież - $2000, 5 dni</div>
+            <div class="offense" onclick="toggleOffense(this)">Obraza funkcjonariusza - $1000</div>
+            <div class="offense" onclick="toggleOffense(this)">Wtargnięcie na teren prywatny - $2500</div>
         </div>
-
-        <!-- Przycisk do zapisania sprawy -->
-        <button class="save-btn" onclick="saveCase()">Zapisz Sprawę</button>
-
-        <!-- Przycisk do wyczyszczenia zarzutów -->
-        <button class="clear-btn" onclick="clearAllCharges()">Wyczyść wszystkie zarzuty</button>
-
+        
+        <div class="category" onclick="toggleCategory('heavy')">Przestępstwa Ciężkie</div>
+        <div id="heavy" class="offenses">
+            <div class="offense" onclick="toggleOffense(this)">Porwanie - $20000, 15 dni</div>
+            <div class="offense" onclick="toggleOffense(this)">Napad na bank - $50000, 30 dni</div>
+            <div class="offense" onclick="toggleOffense(this)">Morderstwo - $75000, 40 dni</div>
+            <div class="offense" onclick="toggleOffense(this)">Handel bronią - $30000, 20 dni</div>
+        </div>
+        
+        <div class="category" onclick="toggleCategory('weapons')">Przestępstwa Związane z Bronią</div>
+        <div id="weapons" class="offenses">
+            <div class="offense" onclick="toggleOffense(this)">Posiadanie broni bez licencji - $10000</div>
+            <div class="offense" onclick="toggleOffense(this)">Użycie broni w miejscu publicznym - $25000</div>
+        </div>
+        
+        <div class="category" onclick="toggleCategory('drugs')">Przestępstwa Narkotykowe</div>
+        <div id="drugs" class="offenses">
+            <div class="offense" onclick="toggleOffense(this)">Posiadanie narkotyków twardych - $20000, 15 dni</div>
+            <div class="offense" onclick="toggleOffense(this)">Handel narkotykami - $35000, 25 dni</div>
+        </div>
+        
+        <button onclick="resetOffenses()">Wyczyść zarzuty</button>
     </div>
 
-    <script>
-        const crimeData = {
-            "traffic": {
-                "Jazda pod wpływem alkoholu lub substancji odurzających": {
-                    penalty: "Mandat i Więzienie",
-                    fineMin: 500,
-                    fineMax: 1000,
-                    imprisonmentMin: 3,
-                    imprisonmentMax: 5,
-                    description: "Jazda pod wpływem alkoholu lub substancji odurzających."
-                },
-                "Jazda bez prawa jazdy": {
-                    penalty: "Mandat",
-                    fineMin: 200,
-                    fineMax: 800,
-                    imprisonmentMin: 0,
-                    imprisonmentMax: 2,
-                    description: "Jazda bez odpowiednich uprawnień."
-                }
-                // Zostaw resztę danych bez zmian
-            },
-            "light": {
-                "Niszczenie mienia publicznego": {
-                    penalty: "Mandat i Więzienie",
-                    fineMin: 1000,
-                    fineMax: 3000,
-                    imprisonmentMin: 1,
-                    imprisonmentMax: 3,
-                    description: "Zniszczenie mienia publicznego."
-                }
-                // Zostaw resztę danych bez zmian
-            }
-        };
-
-        function createCategory(category, data) {
-            let categoryDiv = document.createElement('div');
-            categoryDiv.classList.add('category');
-
-            let categoryHeader = document.createElement('h2');
-            categoryHeader.textContent = category;
-            categoryDiv.appendChild(categoryHeader);
-
-            let categoryContent = document.createElement('div');
-            categoryContent.classList.add('category-content');
-
-            for (let crime in data) {
-                let crimeDiv = document.createElement('div');
-                crimeDiv.classList.add('crime');
-
-                let crimeCheckbox = document.createElement('input');
-                crimeCheckbox.type = 'checkbox';
-                crimeCheckbox.id = crime;
-                crimeCheckbox.name = crime;
-                crimeCheckbox.addEventListener('change', function () {
-                    updatePenalty(data[crime]);
-                });
-
-                let crimeLabel = document.createElement('label');
-                crimeLabel.setAttribute('for', crime);
-                crimeLabel.textContent = crime;
-
-                crimeDiv.appendChild(crimeCheckbox);
-                crimeDiv.appendChild(crimeLabel);
-                categoryContent.appendChild(crimeDiv);
-            }
-
-            categoryDiv.appendChild(categoryContent);
-            document.getElementById('categories').appendChild(categoryDiv);
-        }
-
-        function updatePenalty(crime) {
-            const penaltyElement = document.getElementById('penalty');
-            const fineElement = document.getElementById('fine');
-            const imprisonmentElement = document.getElementById('imprisonment');
-            const descriptionElement = document.getElementById('crime-description');
-
-            penaltyElement.textContent = crime.penalty;
-            fineElement.textContent = `Mandat: ${crime.fineMin} - ${crime.fineMax} PLN`;
-            imprisonmentElement.textContent = `Więzienie: ${crime.imprisonmentMin} - ${crime.imprisonmentMax} lat`;
-            descriptionElement.textContent = crime.description;
-        }
-
-        function clearAllCharges() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach((checkbox) => {
-                checkbox.checked = false;
-            });
-            document.getElementById('penalty').textContent = '';
-            document.getElementById('fine').textContent = '';
-            document.getElementById('imprisonment').textContent = '';
-            document.getElementById('crime-description').textContent = '';
-        }
-
-        function saveCase() {
-            const checkedCrimes = [];
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-            checkboxes.forEach((checkbox) => {
-                checkedCrimes.push(checkbox.id);
-            });
-
-            if (checkedCrimes.length === 0) {
-                alert("Brak zaznaczeń! Wybierz przynajmniej jedno przestępstwo.");
-                return;
-            }
-
-            let caseSummary = `Sprawa: ${checkedCrimes.join(', ')}\n`;
-            caseSummary += `Wybrana kara: ${document.getElementById('penalty').textContent}\n`;
-            caseSummary += `Mandat: ${document.getElementById('fine').textContent}\n`;
-            caseSummary += `Więzienie: ${document.getElementById('imprisonment').textContent}\n`;
-            caseSummary += `Opis przestępstwa: ${document.getElementById('crime-description').textContent}\n`;
-
-            const blob = new Blob([caseSummary], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'sprawa.txt';
-            link.click();
-        }
-
-        // Initialize categories
-        for (const category in crimeData) {
-            createCategory(category, crimeData[category]);
-        }
-
-        // Toggle category visibility
-        document.querySelectorAll('.category h2').forEach(header => {
-            header.addEventListener('click', function () {
-                const content = this.nextElementSibling;
-                content.style.display = content.style.display === 'block' ? 'none' : 'block';
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
