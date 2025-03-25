@@ -2,284 +2,1175 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Taryfikator Przestępstw Chicago</title>
+    <title>Chicago - Wykroczenia Drogowe</title>
     <style>
-        /* Style CSS */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 30px;
-            border-radius: 5px;
-        }
-
-        .search {
-            max-width: 800px;
-            margin: 0 auto 20px;
-            text-align: center;
-        }
-
-        #search-input {
-            width: 300px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .kategoria {
-            background-color: white;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .kategoria h2 {
-            background-color: #3498db;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 0;
-        }
-
-        .tabela-przestepstw {
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
         }
-
-        .tabela-przestepstw th,
-        .tabela-przestepstw td {
+        
+        th, td {
             border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
         }
-
-        .tabela-przestepstw th {
+        
+        th {
             background-color: #2c3e50;
             color: white;
-            position: sticky;
-            top: 0;
         }
-
+        
         .judge-tips {
             display: none;
-            padding: 15px;
             background-color: #f8f9fa;
             border-left: 4px solid #3498db;
-            margin: 10px 0;
-            border-radius: 4px;
+            padding: 15px;
+            margin-top: 5px;
         }
-
+        
         .show-tips {
             background: none;
             border: none;
             color: #3498db;
             cursor: pointer;
             font-weight: bold;
-            padding: 5px 10px;
-        }
-
-        .show-tips:hover {
-            text-decoration: underline;
-        }
-
-        .calculator {
-            background-color: white;
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .calculator button {
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .calculator button:hover {
-            background-color: #219653;
-        }
-
-        #result-container {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e9f7ef;
-            border-left: 4px solid #27ae60;
-            border-radius: 4px;
-            display: none;
-        }
-
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #2c3e50;
-            color: white;
-            margin-top: 20px;
-            border-radius: 5px;
-        }
-
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #result-container, #result-container * {
-                visibility: visible;
-            }
-            #result-container {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Taryfikator Przestępstw Chicago</h1>
-        <p>Policyjny system naliczania kar zgodny z Chicago Municipal Code</p>
-    </header>
+    <h1>Wykroczenia Drogowe - Chicago Municipal Code</h1>
 
-    <div class="search">
-        <input type="text" id="search-input" placeholder="Wyszukaj przestępstwo...">
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Przestępstwo</th>
+                <th>Grzywna</th>
+                <th>Więzienie</th>
+                <th>Dodatkowe sankcje</th>
+                <th>Porady dla sędziego</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Jazda pod wpływem -->
+            <tr>
+                <td>Jazda pod wpływem alkoholu lub substancji odurzających</td>
+                <td>$1000-$1800</td>
+                <td>5-20 dni</td>
+                <td>Odholowanie pojazdu, Konfiskata prawa jazdy</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(1)">ℹ️ Pokaż</button>
+                    <div id="tips-1" class="judge-tips">
+                        <h4>Zalecenia dla sędziego:</h4>
+                        <ul>
+                            <li>Wymagaj oficjalnego badania BAC/THC</li>
+                            <li>Sprawdź historię wykroczeń kierowcy</li>
+                            <li>Rozważ obowiązkowy program rehabilitacyjny (Sec. 9-72-080 CMC)</li>
+                            <li>Dla BAC ≥0.15% automatyczna konfiskata prawa jazdy</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
 
-    <main>
-        <!-- Sekcja: Wykroczenia Drogowe -->
-        <section id="drogowe" class="kategoria">
-            <h2>🚗 Wykroczenia Drogowe</h2>
-            <table class="tabela-przestepstw">
-                <thead>
-                    <tr>
-                        <th>Przestępstwo</th>
-                        <th>Grzywna</th>
-                        <th>Więzienie</th>
-                        <th>Dodatkowe sankcje</th>
-                        <th>Porady dla sędziego</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Jazda pod wpływem -->
-                    <tr>
-                        <td>Jazda pod wpływem alkoholu</td>
-                        <td>$1000-$1800</td>
-                        <td>5-20 dni</td>
-                        <td>Odholowanie, Konfiskata prawa jazdy</td>
-                        <td>
-                            <button class="show-tips" onclick="toggleTips(1)">ℹ️ Pokaż</button>
-                            <div id="tips-1" class="judge-tips">
-                                <h4>Zalecenia (Chicago MC §9-72-080):</h4>
-                                <ul>
-                                    <li>Weryfikuj poziom BAC z raportu</li>
-                                    <li>Dla BAC >0.15% podwójna kara</li>
-                                    <li>Obowiązkowy kurs rehabilitacyjny</li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- Pozostałe przestępstwa drogowe... -->
-                </tbody>
-            </table>
-        </section>
+            <!-- Jazda bez prawa jazdy -->
+            <tr>
+                <td>Jazda bez prawa jazdy</td>
+                <td>$3000</td>
+                <td>5-15 dni</td>
+                <td>Odholowanie pojazdu</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(2)">ℹ️ Pokaż</button>
+                    <div id="tips-2" class="judge-tips">
+                        <h4>Zalecenia dla sędziego:</h4>
+                        <ul>
+                            <li>Weryfikuj właściciela pojazdu (Sec. 9-92-040 CMC)</li>
+                            <li>Automatyczny zakaz prowadzenia na 6 miesięcy</li>
+                            <li>Obowiązkowe szkolenie z zasad ruchu drogowego</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
 
-        <!-- Sekcja: Przestępstwa Lekkie -->
-        <section id="lekkie" class="kategoria">
-            <h2>⚖️ Przestępstwa Lekkie</h2>
-            <table class="tabela-przestepstw">
-                <!-- Tabela podobna do poprzedniej -->
-            </table>
-        </section>
-
-        <!-- Sekcja: Przestępstwa Ciężkie -->
-        <section id="ciezkie" class="kategoria">
-            <h2>🔫 Przestępstwa Ciężkie</h2>
-            <table class="tabela-przestepstw">
-                <!-- Tabela podobna do poprzedniej -->
-            </table>
-        </section>
-
-        <!-- Sekcja: Broń -->
-        <section id="bron" class="kategoria">
-            <h2>🔫 Przestępstwa z Bronią</h2>
-            <table class="tabela-przestepstw">
-                <!-- Tabela podobna do poprzedniej -->
-            </table>
-        </section>
-
-        <!-- Sekcja: Narkotyki -->
-        <section id="narkotyki" class="kategoria">
-            <h2>💊 Przestępstwa Narkotykowe</h2>
-            <table class="tabela-przestepstw">
-                <!-- Tabela podobna do poprzedniej -->
-            </table>
-        </section>
-
-        <!-- Sekcja: Grupy Przestępcze -->
-        <section id="grupy" class="kategoria">
-            <h2>👥 Grupy Przestępcze</h2>
-            <table class="tabela-przestepstw">
-                <!-- Tabela podobna do poprzedniej -->
-            </table>
-        </section>
-
-        <!-- Kalkulator -->
-        <div class="calculator">
-            <h3>Kalkulator Wyroku</h3>
-            <div class="mitigating-factors">
-                <h4>Okoliczności łagodzące:</h4>
-                <div>
-                    <label><input type="checkbox" id="factor-first"> Pierwsze wykroczenie (-20%)</label>
-                    <label><input type="checkbox" id="factor-coop"> Współpraca (-15%)</label>
-                </div>
-            </div>
-            <button onclick="calculateSentence()">Oblicz wyrok</button>
-            <button onclick="window.print()">Drukuj wyrok</button>
-            <div id="result-container"></div>
+            <!-- Przekroczenie prędkości w terenie zabudowanym -->
+            <tr>
+                <td>Przekroczenie prędkości (teren zabudowany)</td>
+                <td>$500-$5000</td>
+                <td>-</td>
+                <td>Tolerancja radaru 6mph</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(3)">ℹ️ Pokaż</button>
+                    <div id="tips-3" class="judge-tips">
+                        <h4>Zalecenia dla sędziego:</h4>
+                        <ul>
+                            <li>Wymagaj certyfikatu kalibracji radaru</li>
+                            <li>Dla przekroczenia >30mph nadaj punkty karne</li>
+                            <li>Rozważ zawieszenie prawa jazdy przy recydywie</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <!-- Jazda bez włączonych świateł -->
+<tr>
+    <td>Jazda bez włączonych świateł</td>
+    <td>$100-$500</td>
+    <td>-</td>
+    <td>Upomnienie</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(4)">ℹ️ Pokaż</button>
+        <div id="tips-4" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-76-110):</h4>
+            <ul>
+                <li>Sprawdź porę dnia i warunki atmosferyczne</li>
+                <li>Dla pojazdów komercyjnych zastosuj wyższą karę</li>
+                <li>Rozważ obowiązkowy przegląd techniczny pojazdu</li>
+            </ul>
         </div>
-    </main>
+    </td>
+</tr>
 
-    <footer>
-        <p>© 2023 Chicago Police Department | Taryfikator zgodny z Chicago Municipal Code</p>
-    </footer>
+<!-- Przekroczenie prędkości poza terenem zabudowanym -->
+<tr>
+    <td>Przekroczenie prędkości (teren niezabudowany)</td>
+    <td>$500-$3000</td>
+    <td>-</td>
+    <td>Tolerancja radaru 6mph</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(5)">ℹ️ Pokaż</button>
+        <div id="tips-5" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-12-040):</h4>
+            <ul>
+                <li>Weryfikuj strefę prędkości na danym odcinku</li>
+                <li>Dla przekroczenia >40mph dodaj 5 punktów karnych</li>
+                <li>Rozważ zawieszenie prawa jazdy na 30 dni</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Brawurowa jazda -->
+<tr>
+    <td>Brawurowa jazda</td>
+    <td>$1000-$2000</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(6)">ℹ️ Pokaż</button>
+        <div id="tips-6" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-24-020):</h4>
+            <ul>
+                <li>Wymagaj nagrań z kamer drogowych</li>
+                <li>Automatyczna konfiskata prawa jazdy na 1 rok</li>
+                <li>Obowiązkowy egzamin psychologiczny</li>
+                <li>Dla uczestników street racing - podwójna kara</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Stwarzanie zagrożenia w ruchu -->
+<tr>
+    <td>Stwarzanie zagrożenia w ruchu</td>
+    <td>$2000-$5000</td>
+    <td>-</td>
+    <td>Konfiskata prawa jazdy</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(7)">ℹ️ Pokaż</button>
+        <div id="tips-7" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-20-015):</h4>
+            <ul>
+                <li>Sprawdź czy doszło do kolizji</li>
+                <li>Wymagaj zeznań świadków</li>
+                <li>Obowiązkowy kurs bezpieczeństwa ruchu</li>
+                <li>Dla zawodowych kierowców - zakaz wykonywania zawodu</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Niezatrzymanie do kontroli -->
+<tr>
+    <td>Niezatrzymanie do kontroli</td>
+    <td>$800-$2500</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(8)">ℹ️ Pokaż</button>
+        <div id="tips-8" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-92-120):</h4>
+            <ul>
+                <li>Sprawdź czy był sygnał świetlny/dźwiękowy</li>
+                <li>Wymagaj raportu policyjnego z przebiegu pościgu</li>
+                <li>Automatyczny zakaz prowadzenia na 6 miesięcy</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Niewłaściwe parkowanie -->
+<tr>
+    <td>Niewłaściwe parkowanie</td>
+    <td>$100-$450</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(9)">ℹ️ Pokaż</button>
+        <div id="tips-9" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-64-040):</h4>
+            <ul>
+                <li>Sprawdź czy pojazd blokował przejazd</li>
+                <li>Weryfikuj strefę parkingową</li>
+                <li>Dla stref dla niepełnosprawnych - podwójna kara</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Zły stan techniczny -->
+<tr>
+    <td>Zły stan techniczny pojazdu</td>
+    <td>$200-$2000</td>
+    <td>-</td>
+    <td>Odholowanie pojazdu</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(10)">ℹ️ Pokaż</button>
+        <div id="tips-10" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-80-210):</h4>
+            <ul>
+                <li>Wymagaj protokołu przeglądu technicznego</li>
+                <li>Sprawdź czy usterka zagrażała bezpieczeństwu</li>
+                <li>Obowiązkowa kontrola w stacji diagnostycznej</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Nieużycie kierunkowskazu -->
+<tr>
+    <td>Nieużycie kierunkowskazu</td>
+    <td>$100</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(11)">ℹ️ Pokaż</button>
+        <div id="tips-11" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-40-160):</h4>
+            <ul>
+                <li>Sprawdź czy spowodowano zagrożenie</li>
+                <li>Dla zawodowych kierowców - dodatkowe punkty karne</li>
+                <li>Rozważ obowiązkowy kurs doszkalający</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Przejazd na czerwonym świetle -->
+<tr>
+    <td>Przejazd na czerwonym świetle</td>
+    <td>$450</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(12)">ℹ️ Pokaż</button>
+        <div id="tips-12" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-8-020):</h4>
+            <ul>
+                <li>Wymagaj nagrań z kamer skrzyżowania</li>
+                <li>Automatyczne 4 punkty karne</li>
+                <li>Dla powtarzających się wykroczeń - zakaz prowadzenia</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Nie zatrzymanie na STOP -->
+<tr>
+    <td>Nie zatrzymanie na znaku STOP</td>
+    <td>$350</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(13)">ℹ️ Pokaż</button>
+        <div id="tips-13" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-16-030):</h4>
+            <ul>
+                <li>Sprawdź widoczność znaku</li>
+                <li>Weryfikuj czy doszło do całkowitego zatrzymania</li>
+                <li>Dla szkół - podwójna kara w strefie szkolnej</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Zniszczenie mienia -->
+<tr>
+    <td>Zniszczenie mienia</td>
+    <td>$200-$2000</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(14)">ℹ️ Pokaż</button>
+        <div id="tips-14" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §8-4-050):</h4>
+            <ul>
+                <li>Wymagaj wyceny szkód</li>
+                <li>Rozważ nakaz naprawy na koszt sprawcy</li>
+                <li>Dla mienia publicznego - dodatkowa kara 30%</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Spowodowanie kolizji -->
+<tr>
+    <td>Spowodowanie kolizji/wypadku</td>
+    <td>$1000-$5000</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(15)">ℹ️ Pokaż</button>
+        <div id="tips-15" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-12-090):</h4>
+            <ul>
+                <li>Wymagaj pełnego raportu policyjnego</li>
+                <li>Sprawdź czy sprawca udzielił pomocy</li>
+                <li>Obowiązkowe ubezpieczenie OC</li>
+                <li>Dla ucieczki z miejsca zdarzenia - dodatkowe 10 dni więzienia</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Jazda pod prąd -->
+<tr>
+    <td>Jazda pod prąd</td>
+    <td>$1000-$2000</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(16)">ℹ️ Pokaż</button>
+        <div id="tips-16" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-16-020):</h4>
+            <ul>
+                <li>Sprawdź czy doszło do zagrożenia życia</li>
+                <li>Wymagaj nagrań z monitoringu</li>
+                <li>Automatyczny zakaz prowadzenia na 3 miesiące</li>
+                <li>Dla autostrad - podwójna kara</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Potrącenie przechodnia -->
+<tr>
+    <td>Potrącenie przechodnia</td>
+    <td>$5000</td>
+    <td>10 dni</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(17)">ℹ️ Pokaż</button>
+        <div id="tips-17" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-12-095):</h4>
+            <ul>
+                <li>Wymagaj pełnej dokumentacji medycznej</li>
+                <li>Sprawdź czy przejście było oznakowane</li>
+                <li>Obowiązkowa terapia dla sprawcy</li>
+                <li>Dla nietrzeźwości - minimalna kara 20 dni więzienia</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Przechodzenie w niedozwolonym miejscu -->
+<tr>
+    <td>Przechodzenie w niedozwolonym miejscu</td>
+    <td>$100-$200</td>
+    <td>-</td>
+    <td>Upomnienie</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(18)">ℹ️ Pokaż</button>
+        <div id="tips-18" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-60-030):</h4>
+            <ul>
+                <li>Sprawdź odległość od legalnego przejścia</li>
+                <li>Rozważ prace społeczne dla recydywistów</li>
+                <li>Dla stref niebezpiecznych - dodatkowa kara $100</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+<!-- Sekcja: Przestępstwa Lekkie -->
+<section id="lekkie" class="kategoria">
+    <h2>⚖️ Przestępstwa Lekkie</h2>
+    <table class="tabela-przestepstw">
+        <tbody>
+            <!-- Niszczenie mienia publicznego -->
+            <tr>
+                <td>Niszczenie mienia publicznego</td>
+                <td>$700-$2000</td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(19)">ℹ️ Pokaż</button>
+                    <div id="tips-19" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-4-070):</h4>
+                        <ul>
+                            <li>Wymagaj wyceny strat od miejskiego rzeczoznawcy</li>
+                            <li>Obowiązkowa praca społeczna 40h</li>
+                            <li>Dla zabytków +50% kary</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Niewykonywanie poleceń funkcjonariusza -->
+            <tr>
+                <td>Niewykonywanie poleceń</td>
+                <td>$600-$2000</td>
+                <td>10 dni</td>
+                <td>Upomnienie</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(20)">ℹ️ Pokaż</button>
+                    <div id="tips-20" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §2-84-080):</h4>
+                        <ul>
+                            <li>Sprawdź nagranie z body-cam</li>
+                            <li>Weryfikuj czy polecenie było zgodne z prawem</li>
+                            <li>Obowiązkowy kurs praw obywatelskich</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Obraza funkcjonariusza -->
+            <tr>
+                <td>Obraza funkcjonariusza</td>
+                <td>$500-$1700</td>
+                <td>5 dni</td>
+                <td>Upomnienie</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(21)">ℹ️ Pokaż</button>
+                    <div id="tips-21" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-4-010):</h4>
+                        <ul>
+                            <li>Wymagaj transkryptu rozmowy</li>
+                            <li>Rozważ terapię kontroli agresji</li>
+                            <li>Dla funkcjonariuszy w służbie +30% kary</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Utrudnianie pracy służb -->
+            <tr>
+                <td>Utrudnianie pracy służb</td>
+                <td>$1000-$2000</td>
+                <td>15 dni</td>
+                <td>Upomnienie</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(22)">ℹ️ Pokaż</button>
+                    <div id="tips-22" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §2-84-095):</h4>
+                        <ul>
+                            <li>Sprawdź czy akcja była ratunkowa</li>
+                            <li>Dla interwencji medycznych podwójna kara</li>
+                            <li>Obowiązkowe szkolenie z pierwszej pomocy</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Fałszywe zgłoszenie -->
+            <tr>
+                <td>Fałszywe zgłoszenie</td>
+                <td>$500-$2500</td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(23)">ℹ️ Pokaż</button>
+                    <div id="tips-23" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-4-130):</h4>
+                        <ul>
+                            <li>Weryfikuj koszt interwencji służb</li>
+                            <li>Automatyczny zakaz korzystania z numerów alarmowych</li>
+                            <li>Dla zgłoszeń terrorystycznych min. 10 dni więzienia</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Wtargnięcie na teren prywatny -->
+            <tr>
+                <td>Wtargnięcie na teren prywatny</td>
+                <td>$1500-$3000</td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(24)">ℹ️ Pokaż</button>
+                    <div id="tips-24" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-4-085):</h4>
+                        <ul>
+                            <li>Wymagaj dokumentacji własności</li>
+                            <li>Rozważ zakaz zbliżania się</li>
+                            <li>Dla posesji strzeżonych +$1000 grzywny</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <!-- Wtargnięcie na teren komendy -->
+<tr>
+    <td>Wtargnięcie na teren komendy</td>
+    <td>$1500-$3000</td>
+    <td>15-30 dni</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(25)">ℹ️ Pokaż</button>
+        <div id="tips-25" class="judge-tips">
+            <h4>Zalecenia (Chicago MC §8-4-410):</h4>
+            <ul>
+                <li>Sprawdź czy był sygnał ostrzegawczy</li>
+                <li>Obowiązkowa kontrola psychiatryczna</li>
+                <li>Dla stref zastrzeżonych min. 20 dni więzienia</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Kradzież pojazdu -->
+<tr>
+    <td>Kradzież pojazdu</td>
+    <td>$700-$3000</td>
+    <td>10-15 dni</td>
+    <td>Odholowanie</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(26)">ℹ️ Pokaż</button>
+        <div id="tips-26" class="judge-tips">
+            <h4>Zalecenia (Chicago MC §8-4-240):</h4>
+            <ul>
+                <li>Wymagaj numeru VIN i dokumentacji</li>
+                <li>Automatyczny zakaz rejestracji pojazdów</li>
+                <li>Dla katalizatorów dodatkowa kara $1000</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Próba przekupstwa -->
+<tr>
+    <td>Próba przekupstwa</td>
+    <td>$1000</td>
+    <td>5-10 dni</td>
+    <td>Upomnienie</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(27)">ℹ️ Pokaż</button>
+        <div id="tips-27" class="judge-tips">
+            <h4>Zalecenia (Chicago MC §2-156-030):</h4>
+            <ul>
+                <li>Wymagaj dowodów materialnych</li>
+                <li>Obowiązkowa kontrola finansowa sprawcy</li>
+                <li>Dla urzędników +50% kary</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+        </tbody>
+    </table>
+</section>
+            <!-- Sekcja: Przestępstwa Ciężkie -->
+<section id="ciezkie" class="kategoria">
+    <h2>🔫 Przestępstwa Ciężkie</h2>
+    <table class="tabela-przestepstw">
+        <tbody>
+            <!-- Groźby z użyciem broni -->
+            <tr>
+                <td>Groźby przy użyciu broni</td>
+                <td>$2000-$5000</td>
+                <td>10-20 dni</td>
+                <td>Konfiskata licencji na broń</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(28)">ℹ️ Pokaż</button>
+                    <div id="tips-28" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-24-015):</h4>
+                        <ul>
+                            <li>Wymagaj dokumentacji posiadania broni</li>
+                            <li>Sprawdź czy broń była załadowana</li>
+                            <li>Obowiązkowa ocena psychiatryczna</li>
+                            <li>Dożywotni zakaz posiadania broni</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Ucieczka przed policją -->
+            <tr>
+                <td>Ucieczka przed policją</td>
+                <td>$3000</td>
+                <td>10-20 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(29)">ℹ️ Pokaż</button>
+                    <div id="tips-29" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-28-330):</h4>
+                        <ul>
+                            <li>Analizuj raport z pościgu</li>
+                            <li>Dodatkowe +5 dni za każde złamane prawo drogowe</li>
+                            <li>Automatyczna konfiskata pojazdu</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Porwanie -->
+            <tr>
+                <td>Porwanie</td>
+                <td>$5000-$10000</td>
+                <td>15-30 dni</td>
+                <td>Konfiskata broni</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(30)">ℹ️ Pokaż</button>
+                    <div id="tips-30" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-12-045):</h4>
+                        <ul>
+                            <li>Wymagaj dowodów okupu</li>
+                            <li>Dla ofiar nieletnich +50% kary</li>
+                            <li>Obowiązkowy monitoring GPS</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Pomoc w ucieczce -->
+            <tr>
+                <td>Pomoc w ucieczce</td>
+                <td>$2000-$3000</td>
+                <td>10-15 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(31)">ℹ️ Pokaż</button>
+                    <div id="tips-31" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-18-110):</h4>
+                        <ul>
+                            <li>Sprawdź powiązania ze sprawcą głównym</li>
+                            <li>Weryfikuj środki transportu użyte do ucieczki</li>
+                            <li>Dodatkowy zakaz kontaktów ze współoskarżonymi</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Współudział w przestępstwie -->
+            <tr>
+                <td>Współudział w przestępstwie</td>
+                <td>$2000-$10000</td>
+                <td>10-40 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(32)">ℹ️ Pokaż</button>
+                    <div id="tips-32" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-32-015):</h4>
+                        <ul>
+                            <li>Określ stopień zaangażowania</li>
+                            <li>Wymagaj pełnej transkrypcji komunikacji</li>
+                            <li>Dla liderów grup przestępczych +50% kary</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Napad na bankomat -->
+            <tr>
+                <td>Napad na bankomat</td>
+                <td>$1000-$3500</td>
+                <td>10-20 dni</td>
+                <td>Konfiskata broni</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(33)">ℹ️ Pokaż</button>
+                    <div id="tips-33" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-44-080):</h4>
+                        <ul>
+                            <li>Weryfikuj nagrania z monitoringu</li>
+                            <li>Dodatkowa kara za uszkodzenie mienia</li>
+                            <li>Zakaz zbliżania się do bankomatów</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Podszywanie się pod adwokata -->
+            <tr>
+                <td>Podszywanie się pod adwokata</td>
+                <td>$2000-$5000</td>
+                <td>25-60 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(34)">ℹ️ Pokaż</button>
+                    <div id="tips-34" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-56-200):</h4>
+                        <ul>
+                            <li>Wymagaj weryfikacji w Izbie Adwokackiej</li>
+                            <li>Obowiązkowa rekompensata dla pokrzywdzonych</li>
+                            <li>Dożywotni zakaz wykonywania zawodów prawniczych</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Napad na Jubilera -->
+            <tr>
+                <td>Napad na Jubilera</td>
+                <td>$3000-$10000</td>
+                <td>20-40 dni</td>
+                <td>Konfiskata broni</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(35)">ℹ️ Pokaż</button>
+                    <div id="tips-35" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-44-150):</h4>
+                        <ul>
+                            <li>Oceń wartość skradzionych dóbr</li>
+                            <li>Wymagaj dokumentacji z eksperta jubilerskiego</li>
+                            <li>Zakaz pracy w branży złotniczej</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Terroryzm -->
+            <tr>
+                <td>Terroryzm</td>
+                <td>$10,000-$100,000</td>
+                <td>100-300 dni</td>
+                <td>Dożywocie/Rozprawa federalna</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(36)">ℹ️ Pokaż</button>
+                    <div id="tips-36" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-88-010):</h4>
+                        <ul>
+                            <li>Współpracuj z FBI/HSI</li>
+                            <li>Zamrożenie wszystkich aktywów</li>
+                            <li>Nadzór antyterrorystyczny po wyroku</li>
+                            <li>Zakaz kontaktów z organizacjami ekstremistycznymi</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <!-- Sekcja: Przestępstwa z bronią -->
+<section id="bron" class="kategoria">
+    <h2>🔫 Przestępstwa z Bronią</h2>
+    <table class="tabela-przestepstw">
+        <tbody>
+            <!-- Posiadanie broni bez zezwolenia -->
+            <tr>
+                <td>Posiadanie broni bez zezwolenia</td>
+                <td>$3000-$7000</td>
+                <td>20-30 dni</td>
+                <td>Konfiskata broni</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(37)">ℹ️ Pokaż</button>
+                    <div id="tips-37" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-20-015):</h4>
+                        <ul>
+                            <li>Weryfikuj typ i kaliber broni</li>
+                            <li>Sprawdź czy broń była zarejestrowana w innym stanie</li>
+                            <li>Obowiązkowy zakaz posiadania broni na 5 lat</li>
+                            <li>Dla broni maszynowej automatycznie +10 dni więzienia</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Posiadanie broni klasy pierwszej -->
+            <tr>
+                <td>Posiadanie nielegalnej broni klasy pierwszej</td>
+                <td>$4000-$8000</td>
+                <td>20-30 dni</td>
+                <td>Konfiskata licencji</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(38)">ℹ️ Pokaż</button>
+                    <div id="tips-38" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-20-040):</h4>
+                        <ul>
+                            <li>Wymagaj raportu balistycznego</li>
+                            <li>Sprawdź powiązania z gangami</li>
+                            <li>Dożywotni zakaz posiadania broni</li>
+                            <li>Obowiązkowe badanie psychologiczne</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Posiadanie broni klasy drugiej -->
+            <tr>
+                <td>Posiadanie nielegalnej broni klasy drugiej</td>
+                <td>$5000-$13000</td>
+                <td>40-60 dni</td>
+                <td>Konfiskata licencji</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(39)">ℹ️ Pokaż</button>
+                    <div id="tips-39" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-20-045):</h4>
+                        <ul>
+                            <li>Wymagaj dokumentacji pochodzenia broni</li>
+                            <li>Automatyczne dożywocie dla broni maszynowej</li>
+                            <li>Współpracuj z ATF</li>
+                            <li>Dodatkowa kara za modyfikacje zwiększające szybkostrzelność</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Bezpodstawne użycie broni -->
+            <tr>
+                <td>Bezpodstawne użycie broni</td>
+                <td>$3000-$7000</td>
+                <td>10-30 dni</td>
+                <td>Konfiskata licencji</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(40)">ℹ️ Pokaż</button>
+                    <div id="tips-40" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-24-030):</h4>
+                        <ul>
+                            <li>Sprawdź czy doszło do strzałów</li>
+                            <li>Weryfikuj liczbę świadków</li>
+                            <li>Obowiązkowa terapia kontroli gniewu</li>
+                            <li>Dla strzałów w miejscu publicznym +15 dni</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Handel bronią -->
+            <tr>
+                <td>Handel bronią</td>
+                <td>$5000-$10000</td>
+                <td>15-30 dni</td>
+                <td>Konfiskata licencji</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(41)">ℹ️ Pokaż</button>
+                    <div id="tips-41" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-20-100):</h4>
+                        <ul>
+                            <li>Wymagaj dokumentacji transakcji</li>
+                            <li>Sprawdź powiązania z grupami przestępczymi</li>
+                            <li>Dożywotni zakaz handlu bronią</li>
+                            <li>Dla broni klasy II automatycznie +20 dni</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <!-- Sekcja: Przestępstwa z użyciem siły -->
+<section id="przemoc" class="kategoria">
+    <h2>🥊 Przestępstwa z użyciem siły</h2>
+    <table class="tabela-przestepstw">
+        <tbody>
+            <!-- Usiłowanie zabójstwa -->
+            <tr>
+                <td>Usiłowanie zabójstwa</td>
+                <td>$5000-$10000</td>
+                <td>15-30 dni</td>
+                <td>Konfiskata broni</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(42)">ℹ️ Pokaż</button>
+                    <div id="tips-42" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-12-100):</h4>
+                        <ul>
+                            <li>Wymagaj opinii biegłego sądowego</li>
+                            <li>Sprawdź historię przemocy sprawcy</li>
+                            <li>Obowiązkowy monitoring elektroniczny</li>
+                            <li>Dożywotni zakaz kontaktów z pokrzywdzonym</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Usiłowanie zabójstwa funkcjonariusza -->
+            <tr>
+                <td>Usiłowanie zabójstwa funkcjonariusza</td>
+                <td>$5000-$20000</td>
+                <td>25-60 dni</td>
+                <td>Konfiskata broni</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(43)">ℹ️ Pokaż</button>
+                    <div id="tips-43" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-12-115):</h4>
+                        <ul>
+                            <li>Automatyczna federalna akta dodatkowa</li>
+                            <li>Wymagaj nagrań z body-cam</li>
+                            <li>Dożywotni zakaz pracy w służbach publicznych</li>
+                            <li>Obowiązkowa terapia antyagresyjna</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Napaść na funkcjonariusza -->
+            <tr>
+                <td>Napaść na funkcjonariusza</td>
+                <td>$3000-$8000</td>
+                <td>15-30 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(44)">ℹ️ Pokaż</button>
+                    <div id="tips-44" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-8-045):</h4>
+                        <ul>
+                            <li>Sprawdź stopień obrażeń funkcjonariusza</li>
+                            <li>Dodatkowe +10 dni za każde złamane prawo</li>
+                            <li>Obowiązkowa praca społeczna 200h</li>
+                            <li>Zakaz zbliżania się do komend policji</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Morderstwo -->
+            <tr>
+                <td>Morderstwo</td>
+                <td>$20,000-$100,000</td>
+                <td>200-500 dni</td>
+                <td>Dożywocie/Rozprawa federalna</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(45)">ℹ️ Pokaż</button>
+                    <div id="tips-45" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-12-200):</h4>
+                        <ul>
+                            <li>Współpracuj z Biurem Śledczym FBI</li>
+                            <li>Wymagaj pełnej dokumentacji kryminalistycznej</li>
+                            <li>Zamrożenie majątku sprawcy</li>
+                            <li>Obowiązkowa terapia dla rodzin ofiar</li>
+                            <li>Dla zabójstw z premedytacją - minimalny wyrok 300 dni</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Pozostałe przestępstwa -->
+            <tr>
+                <td>Groźby karalne</td>
+                <td>$2000-$4000</td>
+                <td>5-20 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(46)">ℹ️ Pokaż</button>
+                    <div id="tips-46" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-4-075):</h4>
+                        <ul>
+                            <li>Weryfikuj środki komunikacji (SMS/email)</li>
+                            <li>Rozważ zakaz kontaktów</li>
+                            <li>Obowiązkowy nadz kuratorski</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Nieumyślne uszkodzenie ciała</td>
+                <td>$1000-$2000</td>
+                <td>5-10 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(47)">ℹ️ Pokaż</button>
+                    <div id="tips-47" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-8-030):</h4>
+                        <ul>
+                            <li>Wymagaj opinii lekarskiej</li>
+                            <li>Rozważ ugodę z pokrzywdzonym</li>
+                            <li>Obowiązkowe ubezpieczenie OC</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Udział w bójce</td>
+                <td>$1000-$2000</td>
+                <td>5 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(48)">ℹ️ Pokaż</button>
+                    <div id="tips-48" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-8-015):</h4>
+                        <ul>
+                            <li>Określ inicjatora bójki</li>
+                            <li>Wymagaj nagrań z monitoringu</li>
+                            <li>Obowiązkowy kurs mediacji</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <!-- Sekcja: Przestępstwa Narkotykowe -->
+<section id="narkotyki" class="kategoria">
+    <h2>💊 Przestępstwa Narkotykowe</h2>
+    <table class="tabela-przestepstw">
+        <tbody>
+            <!-- Posiadanie marihuany -->
+            <tr>
+                <td>Posiadanie marihuany (>5g)</td>
+                <td>$1000-$2000</td>
+                <td>5-10 dni</td>
+                <td>Rewizja obowiązkowa</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(49)">ℹ️ Pokaż</button>
+                    <div id="tips-49" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-32-115):</h4>
+                        <ul>
+                            <li>Sprawdź wagę i czystość substancji</li>
+                            <li>Dla ilości >50g automatyczna zmiana kwalifikacji na handel</li>
+                            <li>Obowiązkowy kurs edukacji narkotykowej</li>
+                            <li>Dla stref szkolnych +50% grzywny</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Posiadanie narkotyków twardych -->
+            <tr>
+                <td>Posiadanie metamfetaminy/kokainy</td>
+                <td>$2000-$4000</td>
+                <td>10-20 dni</td>
+                <td>Rewizja obowiązkowa</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(50)">ℹ️ Pokaż</button>
+                    <div id="tips-50" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-32-120):</h4>
+                        <ul>
+                            <li>Wymagaj analizy laboratoryjnej</li>
+                            <li>Automatyczny zakaz przebywania w klubach nocnych</li>
+                            <li>Obowiązkowa terapia odwykowa 6-miesięczna</li>
+                            <li>Dla opornych - monitoring antynarkotykowy</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Handel marihuaną -->
+            <tr>
+                <td>Handel marihuaną</td>
+                <td>$1000-$2000</td>
+                <td>10-20 dni</td>
+                <td>Rewizja obowiązkowa</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(51)">ℹ️ Pokaż</button>
+                    <div id="tips-51" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-32-200):</h4>
+                        <ul>
+                            <li>Sprawdź sieć dystrybucji</li>
+                            <li>Konfiskuj środki transportu</li>
+                            <li>Zakaz kontaktów z gangami</li>
+                            <li>Dla sprzedaży nieletnim min. 15 dni więzienia</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Handel narkotykami twardymi -->
+            <tr>
+                <td>Handel metamfetaminą/kokainą</td>
+                <td>$3000-$6000</td>
+                <td>15-30 dni</td>
+                <td>Rewizja obowiązkowa</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(52)">ℹ️ Pokaż</button>
+                    <div id="tips-52" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-32-210):</h4>
+                        <ul>
+                            <li>Współpracuj z DEA</li>
+                            <li>Zamroź konta bankowe</li>
+                            <li>Obowiązkowa terapia + nadzór kuratorski 2 lata</li>
+                            <li>Dla ilości >1kg - kwalifikacja jako przestępstwo zorganizowane</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <!-- Sekcja: Grupy Przestępcze -->
+<section id="grupy" class="kategoria">
+    <h2>👥 Zorganizowane Grupy Przestępcze</h2>
+    <table class="tabela-przestepstw">
+        <tbody>
+            <!-- Szef grupy -->
+            <tr>
+                <td>Szef grupy przestępczej</td>
+                <td>$15,000-$20,000</td>
+                <td>50-150 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(53)">ℹ️ Pokaż</button>
+                    <div id="tips-53" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-88-150):</h4>
+                        <ul>
+                            <li>Wymagaj pełnej inwigilacji finansowej</li>
+                            <li>Konfiskuj wszystkie aktywa powiązane z grupą</li>
+                            <li>Obowiązkowa współpraca z FBI Organized Crime Unit</li>
+                            <li>Zakaz kontaktów z członkami gangu na 10 lat</li>
+                            <li>Automatyczne dożywocie przy udowodnieniu 3+ powiązanych przestępstw</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Członkostwo w grupie -->
+            <tr>
+                <td>Członek grupy przestępczej</td>
+                <td>$10,000-$15,000</td>
+                <td>40-100 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(54)">ℹ️ Pokaż</button>
+                    <div id="tips-54" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-88-160):</h4>
+                        <ul>
+                            <li>Weryfikuj tatuaże i symbole gangowe</li>
+                            <li>Wymagaj zeznań "współpracującego świadka"</li>
+                            <li>Obowiązkowy zakaz przebywania w dzielnicach gangowych</li>
+                            <li>Monitoring GPS przez 5 lat po wyjściu</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Współpraca z grupą -->
+            <tr>
+                <td>Współpraca z grupą przestępczą</td>
+                <td>$5000-$10,000</td>
+                <td>30-75 dni</td>
+                <td>-</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(55)">ℹ️ Pokaż</button>
+                    <div id="tips-55" class="judge-tips">
+                        <h4>Zalecenia (Chicago MC §8-88-170):</h4>
+                        <ul>
+                            <li>Analizuj historię transakcji bankowych</li>
+                            <li>Wymagaj ujawnienia wszystkich powiązań</li>
+                            <li>Obowiązkowa zmiana miejsca zamieszkania</li>
+                            <li>Zakaz posiadania broni i środków łączności</li>
+                            <li>Dla prawników/księgowych - dożywotni zakaz wykonywania zawodu</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+ 
+        </tbody>
+    </table>
 
     <script>
-        // Funkcje JavaScript
         function toggleTips(id) {
             const element = document.getElementById(`tips-${id}`);
             element.style.display = element.style.display === 'block' ? 'none' : 'block';
         }
-
-        function calculateSentence() {
-            // Logika obliczania wyroku
-            document.getElementById('result-container').style.display = 'block';
-        }
-
-        // Wyszukiwarka
-        document.getElementById('search-input').addEventListener('input', function(e) {
-            const term = e.target.value.toLowerCase();
-            document.querySelectorAll('.tabela-przestepstw tbody tr').forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(term) ? '' : 'none';
-            });
-        });
     </script>
 </body>
 </html>
