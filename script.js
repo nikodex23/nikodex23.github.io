@@ -11,7 +11,7 @@ if (searchInput) {
   });
 }
 
-// FUNKCJE NAWIGACYJNE
+// FUNKCJE NAWIGACYJNE - Pokazywanie/Zamykanie kategorii przestępstw
 function toggleCategory(id) {
   var element = document.getElementById(id);
   element.style.display = (element.style.display === 'none' || element.style.display === '') ? 'block' : 'none';
@@ -19,67 +19,49 @@ function toggleCategory(id) {
 
 // PODSUMOWANIE WYBRANYCH PRZESTĘPSTW
 function showSelected() {
-    const selectedContainer = document.getElementById('selectedOffenses');
-    selectedContainer.innerHTML = ''; // Czyścimy poprzednie podsumowanie
+  const selectedContainer = document.getElementById('selectedOffenses');
+  selectedContainer.innerHTML = ''; // Czyścimy poprzednie podsumowanie
 
-    const checks = document.querySelectorAll('.offense-check:checked');
-    if (checks.length === 0) {
-        selectedContainer.innerHTML = '<p>Brak wybranych przestępstw.</p>';
-        return;
-    }
+  const checks = document.querySelectorAll('.offense-check:checked');
+  if (checks.length === 0) {
+    selectedContainer.innerHTML = '<p>Brak wybranych przestępstw.</p>';
+    return;
+  }
 
-    let totalFine = 0;
-    let maxPrison = 0;
-    let additionalPrison = 0;
-    const summaryList = [];
+  let totalFine = 0;
+  let maxPrison = 0;
+  let additionalPrison = 0;
+  const summaryList = [];
 
-    checks.forEach(check => {
-        const row = check.closest('.offense-row');
-        const cells = row.querySelectorAll('.offense-cell');
-        const name = cells[1].innerText;
-        const fineText = cells[2].innerText.replace('$', '').trim();
-        const prisonText = cells[3].innerText.replace('dni', '').trim();
-        const fine = parseFloat(fineText) || 0;
-        const prison = parseInt(prisonText) || 0;
+  checks.forEach(check => {
+    const row = check.closest('.offense-row');
+    const cells = row.querySelectorAll('.offense-cell');
+    const name = cells[1].innerText;
+    const fineText = cells[2].innerText.replace('$', '').trim();
+    const prisonText = cells[3].innerText.replace('dni', '').trim();
+    const fine = parseFloat(fineText) || 0;
+    const prison = parseInt(prisonText) || 0;
 
-        totalFine += fine;
-
-        if (prison > maxPrison) {
-            additionalPrison += maxPrison; // Poprzednia maksymalna kara przechodzi jako "dodatkowy czas"
-            maxPrison = prison; // Najwyższa kara jest główną wartością
-        } else {
-            additionalPrison += prison; // Jeśli kara jest mniejsza, dodajemy ją jako dodatek
-        }
-
-        summaryList.push(`${name} – Mandat: $${fine}, Więzienie: ${prison} dni`);
-    });
-
-    // Finalne przeliczenie więzienia - jeśli mamy dodatkowe kary, możemy je lekko dodać (np. 50% z dodatkowych kar)
-    let finalPrison = maxPrison + Math.ceil(additionalPrison * 0.5);
-
-    const summaryText = `<h3>Podsumowanie wybranych przestępstw:</h3>
-        <ul>${summaryList.map(item => `<li>${item}</li>`).join('')}</ul>
-        <p><strong>Łączny mandat:</strong> $${totalFine}</p>
-        <p><strong>Łączny wyrok więzienia:</strong> ${finalPrison} dni</p>`;
-
-    selectedContainer.innerHTML = summaryText;
-}
-
-
-    // Dodajemy mandat do sumy
     totalFine += fine;
-    // Ustalamy, że najcięższa kara więzienia jest ta z największą liczbą dni
+
     if (prison > maxPrison) {
-      maxPrison = prison;
+      additionalPrison += maxPrison; // Poprzednia maksymalna kara przechodzi jako "dodatkowy czas"
+      maxPrison = prison; // Najwyższa kara jest główną wartością
+    } else {
+      additionalPrison += prison; // Jeśli kara jest mniejsza, dodajemy ją jako dodatek
     }
 
     summaryList.push(`${name} – Mandat: $${fine}, Więzienie: ${prison} dni`);
   });
 
+  // Finalne przeliczenie więzienia - jeśli mamy dodatkowe kary, dodajemy 50% ich wartości
+  let finalPrison = maxPrison + Math.ceil(additionalPrison * 0.5);
+
   const summaryText = `<h3>Podsumowanie wybranych przestępstw:</h3>
-    <ul>${summaryList.map(item => `<li>${item}</li>`).join('')}</ul>
-    <p><strong>Łączny mandat:</strong> $${totalFine}</p>
-    <p><strong>Najcięższa kara więzienia:</strong> ${maxPrison} dni</p>`;
+      <ul>${summaryList.map(item => `<li>${item}</li>`).join('')}</ul>
+      <p><strong>Łączny mandat:</strong> $${totalFine}</p>
+      <p><strong>Łączny wyrok więzienia:</strong> ${finalPrison} dni</p>`;
+
   selectedContainer.innerHTML = summaryText;
 }
 
@@ -87,6 +69,5 @@ function showSelected() {
 function resetOffenses() {
   const checks = document.querySelectorAll('.offense-check');
   checks.forEach(check => check.checked = false);
-  const selectedContainer = document.getElementById('selectedOffenses');
-  selectedContainer.innerHTML = '<p>Brak wybranych przestępstw.</p>';
+  document.getElementById('selectedOffenses').innerHTML = '<p>Brak wybranych przestępstw.</p>';
 }
