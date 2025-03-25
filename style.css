@@ -178,3 +178,41 @@ button {
     background: #27ae60;
     color: white;
 }
+
+/* Style dla kalkulatora */
+#advanced-calculator {
+    margin: 30px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.add-to-calculator {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#selected-crimes-list {
+    list-style: none;
+    padding: 0;
+}
+
+#selected-crimes-list li {
+    padding: 8px;
+    margin: 5px 0;
+    background: #e3f2fd;
+    border-radius: 4px;
+}
+
+#selected-crimes-list button {
+    float: right;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
