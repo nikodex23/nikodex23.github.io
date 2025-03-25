@@ -1,71 +1,104 @@
-/* Tło strony */
+/* RESET / BAZA */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-image: url('https://via.placeholder.com/1600x900'); /* Tło */
-    background-size: cover;
-    background-position: center;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
 }
 
-/* Kontener strony */
+/* NAGŁÓWEK */
+header {
+  background-color: #343a40;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+}
+header h1 {
+  margin-bottom: 10px;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* KONTENER */
 .container {
-    width: 80%;
-    margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.8); /* Lekka przezroczystość dla lepszej widoczności */
-    padding: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-top: 50px;
+  max-width: 900px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-/* Tytuł */
-h1 {
-    font-size: 3em;
-    text-align: center;
-    color: #333;
+/* GŁÓWNA ZAWARTOŚĆ */
+main {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 10px;
 }
 
-/* Formularz */
-label, select, button {
-    font-size: 1.5em;
-    margin: 15px 0;
-    display: block;
-    width: 100%;
+/* KATEGORIE */
+.category-section {
+  margin-bottom: 30px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+.category-section h2 {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.2em;
 }
 
-button {
-    padding: 15px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1.2em;
+/* TABELA PRZESTĘPSTW */
+.offense-table {
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.offense-row {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #ccc;
+}
+.offense-row.header {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+.offense-cell {
+  flex: 1;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+}
+.offense-cell:last-child {
+  border-right: none;
+}
+.offense-row:last-child {
+  border-bottom: none;
 }
 
-button:hover {
-    background-color: #218838;
-}
-
-#result {
-    margin-top: 30px;
-    text-align: center;
-}
-
-/* Stylowanie wyników */
-#penalty, #fine, #imprisonment {
-    font-weight: bold;
-    font-size: 1.5em;
-    color: #333;
-}
-
-#crime-description {
-    font-size: 1.3em;
-    color: #555;
-}
-
-#calculate {
-    max-width: 200px;
-    margin: 0 auto;
+/* STOPKA */
+footer {
+  text-align: center;
+  padding: 15px;
+  background-color: #343a40;
+  color: #fff;
+  margin-top: 20px;
 }
