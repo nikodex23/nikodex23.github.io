@@ -2,62 +2,412 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Taryfikator Chicago</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Chicago - Wykroczenia Drogowe</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .judge-tips {
+            display: none;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-top: 5px;
+        }
+        
+        .show-tips {
+            background: none;
+            border: none;
+            color: #3498db;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Policyjny Kalkulator Wyroków</h1>
-        <nav>
-            <a href="#drogowe">Drogowe</a>
-            <a href="#lekkie">Lekkie</a>
-            <a href="#ciezkie">Ciężkie</a>
-        </nav>
-    </header>
+    <h1>Wykroczenia Drogowe - Chicago Municipal Code</h1>
 
-    <div class="search">
-        <input type="text" id="szukaj" placeholder="Szukaj przestępstwa...">
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Przestępstwo</th>
+                <th>Grzywna</th>
+                <th>Więzienie</th>
+                <th>Dodatkowe sankcje</th>
+                <th>Porady dla sędziego</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Jazda pod wpływem -->
+            <tr>
+                <td>Jazda pod wpływem alkoholu lub substancji odurzających</td>
+                <td>$1000-$1800</td>
+                <td>5-20 dni</td>
+                <td>Odholowanie pojazdu, Konfiskata prawa jazdy</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(1)">ℹ️ Pokaż</button>
+                    <div id="tips-1" class="judge-tips">
+                        <h4>Zalecenia dla sędziego:</h4>
+                        <ul>
+                            <li>Wymagaj oficjalnego badania BAC/THC</li>
+                            <li>Sprawdź historię wykroczeń kierowcy</li>
+                            <li>Rozważ obowiązkowy program rehabilitacyjny (Sec. 9-72-080 CMC)</li>
+                            <li>Dla BAC ≥0.15% automatyczna konfiskata prawa jazdy</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
 
-    <!-- Sekcja z przestępstwami -->
-    <main>
-        <!-- Drogowe -->
-        <section id="drogowe" class="kategoria">
-            <h2>Wykroczenia Drogowe</h2>
-            <div class="tabela">
-                <div class="wiersz naglowek">
-                    <div>Zaznacz</div>
-                    <div>Przestępstwo</div>
-                    <div>Grzywna</div>
-                    <div>Wiezienie</div>
-                    <div>Opis</div>
-                </div>
-                <!-- Przykładowe przestępstwo -->
-                <div class="wiersj">
-                    <div><input type="checkbox"></div>
-                    <div>Jazda pod wpływem</div>
-                    <div>$5000</div>
-                    <div>10 dni</div>
-                    <div><button class="opis-btn">ℹ️ Opis</button></div>
-                </div>
-                <!-- [Tu dodaj resztę przestępstw] -->
-            </div>
-        </section>
+            <!-- Jazda bez prawa jazdy -->
+            <tr>
+                <td>Jazda bez prawa jazdy</td>
+                <td>$3000</td>
+                <td>5-15 dni</td>
+                <td>Odholowanie pojazdu</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(2)">ℹ️ Pokaż</button>
+                    <div id="tips-2" class="judge-tips">
+                        <h4>Zalecenia dla sędziego:</h4>
+                        <ul>
+                            <li>Weryfikuj właściciela pojazdu (Sec. 9-92-040 CMC)</li>
+                            <li>Automatyczny zakaz prowadzenia na 6 miesięcy</li>
+                            <li>Obowiązkowe szkolenie z zasad ruchu drogowego</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
 
-        <!-- [Analogicznie sekcje dla innych kategorii] -->
-    </main>
-
-    <!-- Kalkulator -->
-    <div class="kalkulator">
-        <h3>Okoliczności łagodzące:</h3>
-        <div>
-            <label><input type="checkbox"> Pierwszy raz</label>
-            <label><input type="checkbox"> Współpraca</label>
+            <!-- Przekroczenie prędkości w terenie zabudowanym -->
+            <tr>
+                <td>Przekroczenie prędkości (teren zabudowany)</td>
+                <td>$500-$5000</td>
+                <td>-</td>
+                <td>Tolerancja radaru 6mph</td>
+                <td>
+                    <button class="show-tips" onclick="toggleTips(3)">ℹ️ Pokaż</button>
+                    <div id="tips-3" class="judge-tips">
+                        <h4>Zalecenia dla sędziego:</h4>
+                        <ul>
+                            <li>Wymagaj certyfikatu kalibracji radaru</li>
+                            <li>Dla przekroczenia >30mph nadaj punkty karne</li>
+                            <li>Rozważ zawieszenie prawa jazdy przy recydywie</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <!-- Jazda bez włączonych świateł -->
+<tr>
+    <td>Jazda bez włączonych świateł</td>
+    <td>$100-$500</td>
+    <td>-</td>
+    <td>Upomnienie</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(4)">ℹ️ Pokaż</button>
+        <div id="tips-4" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-76-110):</h4>
+            <ul>
+                <li>Sprawdź porę dnia i warunki atmosferyczne</li>
+                <li>Dla pojazdów komercyjnych zastosuj wyższą karę</li>
+                <li>Rozważ obowiązkowy przegląd techniczny pojazdu</li>
+            </ul>
         </div>
-        <button onclick="oblicz()">OBLICZ WYROK</button>
-        <div id="wynik"></div>
-    </div>
+    </td>
+</tr>
 
-    <script src="script.js"></script>
+<!-- Przekroczenie prędkości poza terenem zabudowanym -->
+<tr>
+    <td>Przekroczenie prędkości (teren niezabudowany)</td>
+    <td>$500-$3000</td>
+    <td>-</td>
+    <td>Tolerancja radaru 6mph</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(5)">ℹ️ Pokaż</button>
+        <div id="tips-5" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-12-040):</h4>
+            <ul>
+                <li>Weryfikuj strefę prędkości na danym odcinku</li>
+                <li>Dla przekroczenia >40mph dodaj 5 punktów karnych</li>
+                <li>Rozważ zawieszenie prawa jazdy na 30 dni</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Brawurowa jazda -->
+<tr>
+    <td>Brawurowa jazda</td>
+    <td>$1000-$2000</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(6)">ℹ️ Pokaż</button>
+        <div id="tips-6" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-24-020):</h4>
+            <ul>
+                <li>Wymagaj nagrań z kamer drogowych</li>
+                <li>Automatyczna konfiskata prawa jazdy na 1 rok</li>
+                <li>Obowiązkowy egzamin psychologiczny</li>
+                <li>Dla uczestników street racing - podwójna kara</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Stwarzanie zagrożenia w ruchu -->
+<tr>
+    <td>Stwarzanie zagrożenia w ruchu</td>
+    <td>$2000-$5000</td>
+    <td>-</td>
+    <td>Konfiskata prawa jazdy</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(7)">ℹ️ Pokaż</button>
+        <div id="tips-7" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-20-015):</h4>
+            <ul>
+                <li>Sprawdź czy doszło do kolizji</li>
+                <li>Wymagaj zeznań świadków</li>
+                <li>Obowiązkowy kurs bezpieczeństwa ruchu</li>
+                <li>Dla zawodowych kierowców - zakaz wykonywania zawodu</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Niezatrzymanie do kontroli -->
+<tr>
+    <td>Niezatrzymanie do kontroli</td>
+    <td>$800-$2500</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(8)">ℹ️ Pokaż</button>
+        <div id="tips-8" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-92-120):</h4>
+            <ul>
+                <li>Sprawdź czy był sygnał świetlny/dźwiękowy</li>
+                <li>Wymagaj raportu policyjnego z przebiegu pościgu</li>
+                <li>Automatyczny zakaz prowadzenia na 6 miesięcy</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Niewłaściwe parkowanie -->
+<tr>
+    <td>Niewłaściwe parkowanie</td>
+    <td>$100-$450</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(9)">ℹ️ Pokaż</button>
+        <div id="tips-9" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-64-040):</h4>
+            <ul>
+                <li>Sprawdź czy pojazd blokował przejazd</li>
+                <li>Weryfikuj strefę parkingową</li>
+                <li>Dla stref dla niepełnosprawnych - podwójna kara</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Zły stan techniczny -->
+<tr>
+    <td>Zły stan techniczny pojazdu</td>
+    <td>$200-$2000</td>
+    <td>-</td>
+    <td>Odholowanie pojazdu</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(10)">ℹ️ Pokaż</button>
+        <div id="tips-10" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-80-210):</h4>
+            <ul>
+                <li>Wymagaj protokołu przeglądu technicznego</li>
+                <li>Sprawdź czy usterka zagrażała bezpieczeństwu</li>
+                <li>Obowiązkowa kontrola w stacji diagnostycznej</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Nieużycie kierunkowskazu -->
+<tr>
+    <td>Nieużycie kierunkowskazu</td>
+    <td>$100</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(11)">ℹ️ Pokaż</button>
+        <div id="tips-11" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-40-160):</h4>
+            <ul>
+                <li>Sprawdź czy spowodowano zagrożenie</li>
+                <li>Dla zawodowych kierowców - dodatkowe punkty karne</li>
+                <li>Rozważ obowiązkowy kurs doszkalający</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Przejazd na czerwonym świetle -->
+<tr>
+    <td>Przejazd na czerwonym świetle</td>
+    <td>$450</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(12)">ℹ️ Pokaż</button>
+        <div id="tips-12" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-8-020):</h4>
+            <ul>
+                <li>Wymagaj nagrań z kamer skrzyżowania</li>
+                <li>Automatyczne 4 punkty karne</li>
+                <li>Dla powtarzających się wykroczeń - zakaz prowadzenia</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Nie zatrzymanie na STOP -->
+<tr>
+    <td>Nie zatrzymanie na znaku STOP</td>
+    <td>$350</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(13)">ℹ️ Pokaż</button>
+        <div id="tips-13" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-16-030):</h4>
+            <ul>
+                <li>Sprawdź widoczność znaku</li>
+                <li>Weryfikuj czy doszło do całkowitego zatrzymania</li>
+                <li>Dla szkół - podwójna kara w strefie szkolnej</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Zniszczenie mienia -->
+<tr>
+    <td>Zniszczenie mienia</td>
+    <td>$200-$2000</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(14)">ℹ️ Pokaż</button>
+        <div id="tips-14" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §8-4-050):</h4>
+            <ul>
+                <li>Wymagaj wyceny szkód</li>
+                <li>Rozważ nakaz naprawy na koszt sprawcy</li>
+                <li>Dla mienia publicznego - dodatkowa kara 30%</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Spowodowanie kolizji -->
+<tr>
+    <td>Spowodowanie kolizji/wypadku</td>
+    <td>$1000-$5000</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(15)">ℹ️ Pokaż</button>
+        <div id="tips-15" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-12-090):</h4>
+            <ul>
+                <li>Wymagaj pełnego raportu policyjnego</li>
+                <li>Sprawdź czy sprawca udzielił pomocy</li>
+                <li>Obowiązkowe ubezpieczenie OC</li>
+                <li>Dla ucieczki z miejsca zdarzenia - dodatkowe 10 dni więzienia</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Jazda pod prąd -->
+<tr>
+    <td>Jazda pod prąd</td>
+    <td>$1000-$2000</td>
+    <td>-</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(16)">ℹ️ Pokaż</button>
+        <div id="tips-16" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-16-020):</h4>
+            <ul>
+                <li>Sprawdź czy doszło do zagrożenia życia</li>
+                <li>Wymagaj nagrań z monitoringu</li>
+                <li>Automatyczny zakaz prowadzenia na 3 miesiące</li>
+                <li>Dla autostrad - podwójna kara</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Potrącenie przechodnia -->
+<tr>
+    <td>Potrącenie przechodnia</td>
+    <td>$5000</td>
+    <td>10 dni</td>
+    <td>-</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(17)">ℹ️ Pokaż</button>
+        <div id="tips-17" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-12-095):</h4>
+            <ul>
+                <li>Wymagaj pełnej dokumentacji medycznej</li>
+                <li>Sprawdź czy przejście było oznakowane</li>
+                <li>Obowiązkowa terapia dla sprawcy</li>
+                <li>Dla nietrzeźwości - minimalna kara 20 dni więzienia</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+<!-- Przechodzenie w niedozwolonym miejscu -->
+<tr>
+    <td>Przechodzenie w niedozwolonym miejscu</td>
+    <td>$100-$200</td>
+    <td>-</td>
+    <td>Upomnienie</td>
+    <td>
+        <button class="show-tips" onclick="toggleTips(18)">ℹ️ Pokaż</button>
+        <div id="tips-18" class="judge-tips">
+            <h4>Zalecenia dla sędziego (Chicago MC §9-60-030):</h4>
+            <ul>
+                <li>Sprawdź odległość od legalnego przejścia</li>
+                <li>Rozważ prace społeczne dla recydywistów</li>
+                <li>Dla stref niebezpiecznych - dodatkowa kara $100</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+
+        </tbody>
+    </table>
+
+    <script>
+        function toggleTips(id) {
+            const element = document.getElementById(`tips-${id}`);
+            element.style.display = element.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
 </body>
 </html>
